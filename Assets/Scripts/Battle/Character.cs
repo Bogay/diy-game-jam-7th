@@ -4,15 +4,24 @@ using UnityEngine;
 
 public class Character : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField]
+    private CharacterData data;
 
-    // Update is called once per frame
-    void Update()
+    public int MaxHP => this.data.MaxHP;
+    public int HP { get; private set; }
+    public int Attack => this.data.Attack;
+    public int Defense => this.data.Defense;
+
+    // pos on grid map
+    private Vector2 pos;
+
+    public void TakeDamage(int damage)
     {
-        
+        damage = Mathf.Max(0, damage - this.Defense);
+        this.HP -= damage;
+        if (this.HP <= 0)
+        {
+            // TODO: emit event
+        }
     }
 }
