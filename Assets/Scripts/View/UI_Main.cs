@@ -18,7 +18,7 @@ namespace RogueSharpTutorial.View
         [SerializeField] private InputKeyboard  inputKeyboard;
         [SerializeField] private PlayerCamera   playerCamera;
         [SerializeField] private TileUnity      tilePrefab;
-        [SerializeField] private Sprite[] sprites;
+        [SerializeField] private SpritesCover[] sprites;
 
         private                 Game            game;
         private                 TileUnity[,]    mapObjects;
@@ -125,17 +125,19 @@ namespace RogueSharpTutorial.View
                 tile.IsAsciiTile = false;
                 if(symbol=='@')
                 {
-                    tile.SpriteImage=sprites[1];
+                    //sprites[0].m_Data.m_sexualCharacteristics_01 = LoveCharacterData.SexualCharacteristics.Sickly;
+                    // tile.SpriteImage=(SpritesCover)Resources.Load("Scare",typeof(SpritesCover));
+                    tile.SpriteImage=sprites[1].m_Data.m_sprite;
                     tile.SpriteImageOrder = 1;
                 }
                 else if(symbol=='k')
                 {
-                    tile.SpriteImage=sprites[2];
+                    tile.SpriteImage=sprites[2].m_Data.m_sprite;
                     tile.SpriteImageOrder = 1;
                 }
                 else
                 {
-                    tile.SpriteImage=sprites[0];
+                    tile.SpriteImage=sprites[0].m_Data.m_sprite;
                     tile.SpriteImageOrder = 0;
                 }
             }

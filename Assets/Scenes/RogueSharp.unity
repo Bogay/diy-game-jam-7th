@@ -1369,12 +1369,11 @@ MonoBehaviour:
   uiMessages: {fileID: 0}
   inputKeyboard: {fileID: 0}
   playerCamera: {fileID: 519420030}
-  tilePrefab: {fileID: 114081800238575896, guid: 832fd3dd2b8511e46b4a7e2395265679,
-    type: 3}
+  tilePrefab: {fileID: 114081800238575896, guid: 832fd3dd2b8511e46b4a7e2395265679, type: 3}
   sprites:
-  - {fileID: 21300000, guid: 60a1cf799fc17604da1c713bf551c19f, type: 3}
-  - {fileID: 21300000, guid: 763f0ddb9a8816c46806800f3845624c, type: 3}
-  - {fileID: 21300000, guid: 32f15220ab329e84cb78660dcee94c8f, type: 3}
+  - {fileID: 11400000, guid: ede9cf6db8f7cf240a3d459249a9af3c, type: 2}
+  - {fileID: 11400000, guid: 97f0854e89c84924cbabff0512392244, type: 2}
+  - {fileID: 11400000, guid: 2d4a0af7ec9c11348ac5983fd4afc144, type: 2}
 --- !u!4 &1929674591
 Transform:
   m_ObjectHideFlags: 0
@@ -1409,8 +1408,7 @@ MonoBehaviour:
   goldField: {fileID: 1722558105}
   mapLevelField: {fileID: 296411139}
   enemyGroup: {fileID: 1451840732}
-  statBarPrefab: {fileID: 1120165058369428, guid: e0928e5f47819b348ba06e86cf0fe432,
-    type: 3}
+  statBarPrefab: {fileID: 1120165058369428, guid: e0928e5f47819b348ba06e86cf0fe432, type: 3}
 --- !u!114 &1929674593
 MonoBehaviour:
   m_ObjectHideFlags: 0
