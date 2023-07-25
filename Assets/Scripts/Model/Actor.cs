@@ -7,38 +7,41 @@ namespace RogueSharpTutorial.Model
 {
     public class Actor : IActor, IDrawable, IScheduleable
     {
+        public event UpdateAttack OnAttack;
+        public event UpdateAttack OnDefense;
+
         // IActor
-        private int     attack;
-        public  int     Attack          { get { return attack; }        set { attack = value; } }
-        private int     attackChance;
-        public  int     AttackChance    { get { return attackChance; }  set { attackChance = value; } }
-        private int     defense;
-        public  int     Defense         { get { return defense; }       set { defense = value; } }
-        private int     defenseChance;
-        public  int     DefenseChance   { get { return defenseChance; } set { defenseChance = value; } }
-        private int     gold;
-        public  int     Gold            { get { return gold; }          set { gold = value; } }
-        private int     health;
-        public  int     Health          { get { return health; }        set { health = value; } }
-        private int     maxHealth;
-        public  int     MaxHealth       { get { return maxHealth; }     set { maxHealth = value; } }
-        private int     speed;
-        public  int     Speed           { get { return speed; }         set { speed = value; } }
-        private string  name;
-        public string   Name            { get { return name; }          set { name = value; } }
-        private int     awareness;
-        public  int     Awareness       { get { return awareness; }     set { awareness = value; } }
+        private int attack;
+        public int Attack { get { return attack; } set { attack = value; } }
+        private int attackChance;
+        public int AttackChance { get { return attackChance; } set { attackChance = value; } }
+        private int defense;
+        public int Defense { get { return defense; } set { defense = value; } }
+        private int defenseChance;
+        public int DefenseChance { get { return defenseChance; } set { defenseChance = value; } }
+        private int gold;
+        public int Gold { get { return gold; } set { gold = value; } }
+        private int health;
+        public int Health { get { return health; } set { health = value; } }
+        private int maxHealth;
+        public int MaxHealth { get { return maxHealth; } set { maxHealth = value; } }
+        private int speed;
+        public int Speed { get { return speed; } set { speed = value; } }
+        private string name;
+        public string Name { get { return name; } set { name = value; } }
+        private int awareness;
+        public int Awareness { get { return awareness; } set { awareness = value; } }
 
         // IDrawable
-        public  Colors  Color           { get; set; }
-        public  char    Symbol          { get; set; }
-        public  int     X               { get; set; }
-        public  int     Y               { get; set; }
+        public Colors Color { get; set; }
+        public char Symbol { get; set; }
+        public int X { get; set; }
+        public int Y { get; set; }
 
         // Ischeduleable
-        public  int     Time            { get {return Speed;} }
+        public int Time { get { return Speed; } }
 
-        protected Game  game;
+        protected Game game;
 
         public Actor(Game game)
         {
@@ -57,6 +60,30 @@ namespace RogueSharpTutorial.Model
                 // When not in field-of-view just draw a normal floor
                 game.SetMapCell(X, Y, Colors.Floor, Colors.FloorBackground, '.', map.GetCell(X, Y).IsExplored);
             }
+        }
+
+        public void PrepareAttack(Actor defender, AttackData attackData)
+        {
+            if (this.OnAttack == null) return;
+
+            this.OnAttack(this, new UpdateAttackArgs
+            {
+                attacker = this,
+                defender = defender,
+                attackData = attackData,
+            });
+        }
+
+        public void PrepareDefense(Actor attacker, AttackData attackData)
+        {
+            if (this.OnDefense == null) return;
+
+            this.OnDefense(this, new UpdateAttackArgs
+            {
+                attacker = attacker,
+                defender = this,
+                attackData = attackData,
+            });
         }
     }
 }
