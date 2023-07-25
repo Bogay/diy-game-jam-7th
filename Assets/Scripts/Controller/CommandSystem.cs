@@ -9,7 +9,7 @@ namespace RogueSharpTutorial.Controller
     public class CommandSystem
     {
         private Game game;
-        public  bool IsPlayerTurn   { get; set; }
+        public bool IsPlayerTurn { get; set; }
 
         public CommandSystem(Game game)
         {
@@ -138,9 +138,10 @@ namespace RogueSharpTutorial.Controller
             StringBuilder attackMessage = new StringBuilder();
             StringBuilder defenseMessage = new StringBuilder();
 
-            int hits = ResolveAttack(attacker, defender, attackMessage);
+            AttackData attackData = ResolveAttack(attacker, defender, attackMessage);
+            defender.PrepareDefense(attacker, attackData);
 
-            int blocks = ResolveDefense(defender, hits, attackMessage, defenseMessage);
+            // TODO: update attack / defense message (which was done by ResolveDefense)
 
             game.MessageLog.Add(attackMessage.ToString());
             if (!string.IsNullOrEmpty(defenseMessage.ToString()))
@@ -148,9 +149,7 @@ namespace RogueSharpTutorial.Controller
                 game.MessageLog.Add(defenseMessage.ToString());
             }
 
-            int damage = hits - blocks;
-
-            ResolveDamage(defender, damage);
+            ResolveDamage(defender, attackData);
         }
 
         /// <summary>
@@ -160,7 +159,7 @@ namespace RogueSharpTutorial.Controller
         /// <param name="defender"></param>
         /// <param name="attackMessage"></param>
         /// <returns></returns>
-        private int ResolveAttack(Actor attacker, Actor defender, StringBuilder attackMessage)
+        private AttackData ResolveAttack(Actor attacker, Actor defender, StringBuilder attackMessage)
         {
             int hits = 0;
 
@@ -181,20 +180,23 @@ namespace RogueSharpTutorial.Controller
                 }
             }
 
-            return hits;
+            AttackData attackData = new AttackData(hits);
+            attacker.PrepareAttack(defender, attackData);
+
+            return attackData;
         }
 
         // The defender rolls based on his stats to see if he blocks any of the hits from the attacker
-        private int ResolveDefense(Actor defender, int hits, StringBuilder attackMessage, StringBuilder defenseMessage)
+        private AttackData ResolveDefense(Actor defender, AttackData attackData, StringBuilder attackMessage, StringBuilder defenseMessage)
         {
             int blocks = 0;
 
-            if (hits > 0)
+            if (attackData.Value > 0)
             {
-                attackMessage.AppendFormat("scoring {0} hits.", hits);
+                attackMessage.AppendFormat("scoring {0} hits.", attackData.Value);
                 defenseMessage.AppendFormat("  {0} defends and rolls: ", defender.Name);
 
-                // Roll a number of 100-sided dice equal to the Defense value of the defendering actor
+                // Roll a number of 100-sided dice equal to the Defense value of the defending actor
                 DiceExpression defenseDice = new DiceExpression().Dice(defender.Defense, 100);
                 DiceResult defenseRoll = defenseDice.Roll();
 
@@ -215,17 +217,17 @@ namespace RogueSharpTutorial.Controller
                 attackMessage.Append("and misses completely.");
             }
 
-            return blocks;
+            return attackData;
         }
 
         // Apply any damage that wasn't blocked to the defender
-        private void ResolveDamage(Actor defender, int damage)
+        private void ResolveDamage(Actor defender, AttackData attackData)
         {
-            if (damage > 0)
+            if (attackData.Value > 0)
             {
-                defender.Health = defender.Health - damage;
+                defender.Health = defender.Health - attackData.Value;
 
-                game.MessageLog.Add(defender.Name + " was hit for " + damage + " damage.");
+                game.MessageLog.Add(defender.Name + " was hit for " + attackData.Value + " damage.");
 
                 if (defender.Health <= 0)
                 {
