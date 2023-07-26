@@ -150,6 +150,11 @@ namespace RogueSharpTutorial.Controller
                     case InputCommands.CloseGame:
                         rootConsole.CloseApplication();
                         break;
+                    case InputCommands.CastSkill:
+                        break;
+                    case InputCommands.Rest:
+                        didPlayerAct = commandSystem.Rest(this.Player);
+                        break;
                     default:
                         break;
                 }

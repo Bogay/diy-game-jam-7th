@@ -4,12 +4,12 @@ namespace RogueSharpTutorial.View
 {
     public class InputKeyboard : MonoBehaviour
     {
-        private InputCommands   input;
+        private InputCommands input;
 
         /// <summary>
         /// Will return the last keyboard up pressed. Will then clear the input to None.
         /// </summary>
-        public  InputCommands Command
+        public InputCommands Command
         {
             get
             {
@@ -65,6 +65,10 @@ namespace RogueSharpTutorial.View
             else if (Input.GetKeyUp(KeyCode.Escape))
             {
                 return InputCommands.CloseGame;
+            }
+            else if (Input.GetKeyUp(KeyCode.Space))
+            {
+                return InputCommands.Rest;
             }
 
             return InputCommands.None;

@@ -256,5 +256,20 @@ namespace RogueSharpTutorial.Controller
                 game.MessageLog.Add(defender.Name + " died and dropped " + defender.Gold + " gold.");
             }
         }
+
+        public bool Rest(Actor actor)
+        {
+            // TODO: maybe this should be a static buff?
+            AttackData restData = new AttackData(2);
+            actor.ResolveRest(restData);
+
+            if (restData.isEffective && restData.Value > 0)
+            {
+                actor.Health += restData.Value;
+                game.MessageLog.Add($"{actor.Name} healed {restData.Value} HP after resting.");
+            }
+
+            return true;
+        }
     }
 }

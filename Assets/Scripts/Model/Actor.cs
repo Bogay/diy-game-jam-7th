@@ -15,6 +15,7 @@ namespace RogueSharpTutorial.Model
         // TODO: naming
         // it is ued to update attacker / defender properties, we may need to use another type
         public event UpdateAttack OnDamaged;
+        public event RestEventHandler OnRest;
 
         private List<BuffData> buffs;
 
@@ -121,6 +122,15 @@ namespace RogueSharpTutorial.Model
             this.buffs.RemoveAt(idx);
             buff.OnDetached(this);
             return true;
+        }
+
+        public void ResolveRest(AttackData restData)
+        {
+            this.OnRest?.Invoke(this, new RestArgs
+            {
+                Actor = this,
+                Value = restData,
+            });
         }
     }
 }
