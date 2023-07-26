@@ -4,15 +4,16 @@ using UnityEngine;
 using RogueSharpTutorial.Model;
 
 [System.Serializable]
-public class BuffViewData
+public struct BuffViewData
 {
     public Sprite Sprite;
     public string Description;
+    [Tooltip("whether it should be displayed on UI")]
+    public bool show;
 }
 
 public class BuffData : ScriptableObject
 {
-    // won't be rendered on UI if set to null
     public BuffViewData viewData;
 
     [Tooltip("Notes for dev. Won't affect game logic")]
