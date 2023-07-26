@@ -1,4 +1,5 @@
-﻿using RogueSharpTutorial.View;
+﻿using System;
+using RogueSharpTutorial.View;
 using RogueSharpTutorial.Controller;
 using RogueSharpTutorial.Model.Interfaces;
 using RogueSharp;
@@ -9,6 +10,9 @@ namespace RogueSharpTutorial.Model
     {
         public event UpdateAttack OnAttack;
         public event UpdateAttack OnDefense;
+        // TODO: naming
+        // it is ued to update attacker / defender properties, we may need to use another type
+        public event UpdateAttack OnDamaged;
 
         // IActor
         private int attack;
@@ -22,7 +26,7 @@ namespace RogueSharpTutorial.Model
         private int gold;
         public int Gold { get { return gold; } set { gold = value; } }
         private int health;
-        public int Health { get { return health; } set { health = value; } }
+        public int Health { get { return health; } set { health = Math.Min(value, MaxHealth); } }
         private int maxHealth;
         public int MaxHealth { get { return maxHealth; } set { maxHealth = value; } }
         private int speed;
@@ -81,6 +85,18 @@ namespace RogueSharpTutorial.Model
             this.OnDefense(this, new UpdateAttackArgs
             {
                 attacker = attacker,
+                defender = this,
+                attackData = attackData,
+            });
+        }
+
+        public void ResolveDamage(AttackData attackData)
+        {
+            if (this.OnDamaged == null) return;
+
+            this.OnDamaged(this, new UpdateAttackArgs
+            {
+                attacker = null,
                 defender = this,
                 attackData = attackData,
             });

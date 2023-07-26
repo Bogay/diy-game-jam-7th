@@ -229,6 +229,8 @@ namespace RogueSharpTutorial.Controller
 
                 game.MessageLog.Add(defender.Name + " was hit for " + attackData.Value + " damage.");
 
+                defender.ResolveDamage(attackData);
+
                 if (defender.Health <= 0)
                 {
                     ResolveDeath(defender);
