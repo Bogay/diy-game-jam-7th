@@ -22,11 +22,11 @@ public class BuffData : ScriptableObject
 
     public virtual void OnAttaching(Actor actor)
     {
-        Debug.Log($"Attach to {actor.Name}");
+        Debug.Log($"Attach {this} to {actor.Name}");
     }
 
     public virtual void OnDetached(Actor actor)
     {
-        Debug.Log($"Detached from {actor.Name}");
+        Debug.Log($"Detached {this} from {actor.Name}");
     }
 }

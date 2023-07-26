@@ -4,19 +4,24 @@ using System.Collections.Generic;
 using RogueSharpTutorial.Controller;
 using RogueSharp;
 using RogueSharp.DiceNotation;
+using UniDi;
+using UnityEngine;
 
 namespace RogueSharpTutorial.Model
 {
     public class MapGenerator
     {
-        private readonly int        width;
-        private readonly int        height;
-        private readonly int        maxRooms;
-        private readonly int        roomMaxSize;
-        private readonly int        roomMinSize;
+        private readonly int width;
+        private readonly int height;
+        private readonly int maxRooms;
+        private readonly int roomMaxSize;
+        private readonly int roomMinSize;
 
         private readonly DungeonMap map;
-        private readonly Game       game;
+        private readonly Game game;
+
+        [Inject(Id = "static")]
+        private List<BuffData> staticBuffs;
 
         /// <summary>
         /// Constructing a new MapGenerator requires the dimensions of the maps it will create as well as the sizes and maximum number of rooms.
@@ -28,13 +33,13 @@ namespace RogueSharpTutorial.Model
         /// <param name="roomMinSize"></param>
         public MapGenerator(Game game, int width, int height, int maxRooms, int roomMaxSize, int roomMinSize, int mapLevel)
         {
-            this.width          = width;
-            this.height         = height;
-            this.maxRooms       = maxRooms;
-            this.roomMaxSize    = roomMaxSize;
-            this.roomMinSize    = roomMinSize;
-            this.game           = game;
-            map                 = new DungeonMap(game);
+            this.width = width;
+            this.height = height;
+            this.maxRooms = maxRooms;
+            this.roomMaxSize = roomMaxSize;
+            this.roomMinSize = roomMinSize;
+            this.game = game;
+            map = new DungeonMap(game);
         }
 
         /// <summary>
@@ -42,7 +47,7 @@ namespace RogueSharpTutorial.Model
         /// </summary>
         /// <returns></returns>
         public DungeonMap CreateMap()
-        {          
+        {
             map.Initialize(width, height);                                                  // Set the properties of all cells to false
 
             for (int r = 0; r < maxRooms; r++)                                              // Try to place as many rooms as the specified maxRooms
@@ -67,7 +72,7 @@ namespace RogueSharpTutorial.Model
                 int previousRoomCenterY = map.Rooms[r - 1].Center.Y;
                 int currentRoomCenterX = map.Rooms[r].Center.X;
                 int currentRoomCenterY = map.Rooms[r].Center.Y;
-               
+
                 if (Game.Random.Next(1, 2) == 1)                                            // Give a 50/50 chance of which 'L' shaped connecting hallway to tunnel out
                 {
                     CreateHorizontalTunnel(previousRoomCenterX, currentRoomCenterX, previousRoomCenterY);
@@ -102,6 +107,7 @@ namespace RogueSharpTutorial.Model
             if (player == null)
             {
                 player = new Player(game);
+                this.installStaticBuff(player);
             }
 
             player.X = map.Rooms[0].Center.X;
@@ -142,7 +148,7 @@ namespace RogueSharpTutorial.Model
             borderCells.AddRange(map.GetCellsAlongLine(xMin, yMax, xMax, yMax));
             borderCells.AddRange(map.GetCellsAlongLine(xMax, yMin, xMax, yMax));
 
-            
+
             foreach (Cell cell in borderCells)                                              // Go through each of the rooms border cells and look for locations to place doors.
             {
                 if (IsPotentialDoor(cell))
@@ -163,13 +169,13 @@ namespace RogueSharpTutorial.Model
         /// </summary>
         private void CreateStairs()
         {
-            map.StairsUp = new Stairs (game)
+            map.StairsUp = new Stairs(game)
             {
                 X = map.Rooms.First().Center.X + 1,
                 Y = map.Rooms.First().Center.Y,
                 IsUp = true
             };
-            map.StairsDown = new Stairs (game)
+            map.StairsDown = new Stairs(game)
             {
                 X = map.Rooms.Last().Center.X,
                 Y = map.Rooms.Last().Center.Y,
@@ -189,9 +195,9 @@ namespace RogueSharpTutorial.Model
                 return false;
             }
 
-            Cell right  = (Cell)map.GetCell(cell.X + 1, cell.Y);                            // Store references to all of the neighboring cells 
-            Cell left   = (Cell)map.GetCell(cell.X - 1, cell.Y);
-            Cell top    = (Cell)map.GetCell(cell.X, cell.Y - 1);
+            Cell right = (Cell)map.GetCell(cell.X + 1, cell.Y);                            // Store references to all of the neighboring cells 
+            Cell left = (Cell)map.GetCell(cell.X - 1, cell.Y);
+            Cell top = (Cell)map.GetCell(cell.X, cell.Y - 1);
             Cell bottom = (Cell)map.GetCell(cell.X, cell.Y + 1);
 
             if (map.GetDoor(cell.X, cell.Y) != null ||
@@ -249,24 +255,34 @@ namespace RogueSharpTutorial.Model
         private void PlaceMonsters()
         {
             foreach (var room in map.Rooms)
-            {             
+            {
                 if (Dice.Roll("1D10") < 7)                                                  // Each room has a 60% chance of having monsters
-                {                  
+                {
                     var numberOfMonsters = Dice.Roll("1D4");                                // Generate between 1 and 4 monsters
 
                     for (int i = 1; i < numberOfMonsters; i++)                              // Not starting at zero. Player is in room zero.
-                    {                       
+                    {
                         Point randomRoomLocation = map.GetRandomWalkableLocationInRoom(room);// Find a random walkable location in the room to place the monster                       
-                        
+
                         if (randomRoomLocation != Point.Zero)                               // It's possible that the room doesn't have space to place a monster
                         {                                                                   // In that case skip creating the monster                           
                             var monster = Kobold.Create(1, game);                           // Temporarily hard code this monster to be created at level 1
+                            this.installStaticBuff(monster);
                             monster.X = randomRoomLocation.X;
                             monster.Y = randomRoomLocation.Y;
                             map.AddMonster(monster);
                         }
                     }
                 }
+            }
+        }
+
+
+        private void installStaticBuff(Actor actor)
+        {
+            for (int i = 0; i < this.staticBuffs.Count; i++)
+            {
+                actor.AddBuff(ScriptableObject.Instantiate(this.staticBuffs[i]));
             }
         }
     }

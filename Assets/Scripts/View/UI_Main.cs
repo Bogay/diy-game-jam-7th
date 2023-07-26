@@ -4,32 +4,38 @@ using UnityEngine;
 using RogueSharpTutorial.Controller;
 using RogueSharpTutorial.Utilities;
 using RogueSharpTutorial.Model;
+using UniDi;
 
 namespace RogueSharpTutorial.View
 {
     [System.Serializable]
     public class UI_Main : MonoBehaviour
     {
-        public event UpdateEventHandler         UpdateView;
+        public event UpdateEventHandler UpdateView;
 
         //[SerializeField] private UI_Inventory   uiInventory;
-        [SerializeField] private UI_Stats       uiStats;
-        [SerializeField] private UI_Messages    uiMessages;
-        [SerializeField] private InputKeyboard  inputKeyboard;
-        [SerializeField] private PlayerCamera   playerCamera;
-        [SerializeField] private TileUnity      tilePrefab;
+        [SerializeField] private UI_Stats uiStats;
+        [SerializeField] private UI_Messages uiMessages;
+        [SerializeField] private InputKeyboard inputKeyboard;
+        [SerializeField] private PlayerCamera playerCamera;
+        [SerializeField] private TileUnity tilePrefab;
         [SerializeField] private SpritesCover[] sprites;
 
-        private                 Game            game;
-        private                 TileUnity[,]    mapObjects;
+        [Inject]
+        private DiContainer container;
+
+        private Game game;
+        private TileUnity[,] mapObjects;
 
         private void Start()
         {
             //uiInventory     = GetComponent<UI_Inventory>();
-            uiStats         = GetComponent<UI_Stats>();
-            uiMessages      = GetComponent<UI_Messages>();
-            inputKeyboard   = GetComponent<InputKeyboard>();
-            game            = new Game(this);
+            uiStats = GetComponent<UI_Stats>();
+            uiMessages = GetComponent<UI_Messages>();
+            inputKeyboard = GetComponent<InputKeyboard>();
+            // game = new Game(this);
+            // container.Inject(game);
+            game = this.container.Instantiate<Game>();
         }
 
         private void Update()
@@ -88,7 +94,7 @@ namespace RogueSharpTutorial.View
         public void UpdateMapCell(int x, int y, Colors foreColor, Colors backColor, char symbol, bool isExplored)
         {
             TileUnity tile;
-            
+
             if (mapObjects[x, y] != null)
             {
                 tile = mapObjects[x, y];
@@ -121,23 +127,23 @@ namespace RogueSharpTutorial.View
                 tile.BackgroundColor = ColorMap.UnityColors[backColor];
                 tile.Text = symbol;
                 tile.TextColor = ColorMap.UnityColors[foreColor];
-                
+
                 tile.IsAsciiTile = false;
-                if(symbol=='@')
+                if (symbol == '@')
                 {
                     //sprites[0].m_Data.m_sexualCharacteristics_01 = LoveCharacterData.SexualCharacteristics.Sickly;
                     // tile.SpriteImage=(SpritesCover)Resources.Load("Scare",typeof(SpritesCover));
-                    tile.SpriteImage=sprites[1].m_Data.m_sprite;
+                    tile.SpriteImage = sprites[1].m_Data.m_sprite;
                     tile.SpriteImageOrder = 1;
                 }
-                else if(symbol=='k')
+                else if (symbol == 'k')
                 {
-                    tile.SpriteImage=sprites[2].m_Data.m_sprite;
+                    tile.SpriteImage = sprites[2].m_Data.m_sprite;
                     tile.SpriteImageOrder = 1;
                 }
                 else
                 {
-                    tile.SpriteImage=sprites[0].m_Data.m_sprite;
+                    tile.SpriteImage = sprites[0].m_Data.m_sprite;
                     tile.SpriteImageOrder = 0;
                 }
             }

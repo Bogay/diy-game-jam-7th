@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using RogueSharpTutorial.View;
 using RogueSharpTutorial.Controller;
 using RogueSharpTutorial.Model.Interfaces;
@@ -13,6 +15,8 @@ namespace RogueSharpTutorial.Model
         // TODO: naming
         // it is ued to update attacker / defender properties, we may need to use another type
         public event UpdateAttack OnDamaged;
+
+        private List<BuffData> buffs;
 
         // IActor
         private int attack;
@@ -50,6 +54,7 @@ namespace RogueSharpTutorial.Model
         public Actor(Game game)
         {
             this.game = game;
+            this.buffs = new List<BuffData>();
         }
 
         public void Draw(IMap map)
@@ -100,6 +105,22 @@ namespace RogueSharpTutorial.Model
                 defender = this,
                 attackData = attackData,
             });
+        }
+
+        public void AddBuff(BuffData buff)
+        {
+            this.buffs.Add(buff);
+            buff.OnAttaching(this);
+        }
+
+        public bool RemoveBuff(BuffData buff)
+        {
+            int idx = this.buffs.IndexOf(buff);
+            if (idx == -1)
+                return false;
+            this.buffs.RemoveAt(idx);
+            buff.OnDetached(this);
+            return true;
         }
     }
 }
