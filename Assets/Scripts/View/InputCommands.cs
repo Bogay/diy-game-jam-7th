@@ -1,5 +1,5 @@
 ﻿namespace RogueSharpTutorial.View
-{ 
+{
     public enum InputCommands
     {
         None,
@@ -12,6 +12,10 @@
         Down,
         DownRight,
         CloseGame,
-        StairsDown
+        StairsDown,
+        // 放技能
+        CastSkill,
+        // 休息回血
+        Rest,
     }
 }

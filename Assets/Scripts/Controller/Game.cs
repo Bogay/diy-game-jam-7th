@@ -4,42 +4,48 @@ using RogueSharpTutorial.View;
 using RogueSharpTutorial.Model;
 using RogueSharpTutorial.Utilities;
 using RogueSharp.Random;
-//using UnityEngine;
+using UniDi;
 
 namespace RogueSharpTutorial.Controller
 {
     public class Game
     {
-        public static IRandom           Random              { get; private set; }
+        public static IRandom Random { get; private set; }
 
-        private UI_Main                 rootConsole;
-        private InputKeyboard           inputControl;
+        private UI_Main rootConsole;
+        private InputKeyboard inputControl;
 
-        private CommandSystem           commandSystem;
-        private static readonly int     mapWidth            = 80;
-        private static readonly int     mapHeight           = 48;
-        private bool                    renderRequired      = true;
+        private CommandSystem commandSystem;
+        private static readonly int mapWidth = 80;
+        private static readonly int mapHeight = 48;
+        private bool renderRequired = true;
 
-        public  MessageLog              MessageLog          { get; set; }
-        public  DungeonMap              World               { get; private set; }
-        public  Player                  Player              { get; set; }
-        public  SchedulingSystem        SchedulingSystem    { get; private set; }
+        public MessageLog MessageLog { get; set; }
+        public DungeonMap World { get; private set; }
+        public Player Player { get; set; }
+        public SchedulingSystem SchedulingSystem { get; private set; }
 
-        public int                      mapLevel            = 1;
+        public int mapLevel = 1;
 
-        public Game(UI_Main console)
+        private List<BuffData> staticBuffs;
+        private DiContainer container;
+
+        public Game(UI_Main console, DiContainer container, [Inject(Id = "static")] List<BuffData> staticBuffs)
         {
-            int seed                = (int)DateTime.UtcNow.Ticks;
-            Random                  = new DotNetRandom(seed);
-            commandSystem           = new CommandSystem(this);
-            MessageLog              = new MessageLog(this);
-            SchedulingSystem        = new SchedulingSystem();
+            int seed = (int)DateTime.UtcNow.Ticks;
+            Random = new DotNetRandom(seed);
+            commandSystem = new CommandSystem(this);
+            MessageLog = new MessageLog(this);
+            SchedulingSystem = new SchedulingSystem();
 
-            rootConsole             = console;
-            rootConsole.UpdateView  += OnUpdate;                         // Set up a handler for graphic engine Update event
+            rootConsole = console;
+            rootConsole.UpdateView += OnUpdate;                         // Set up a handler for graphic engine Update event
 
-            MessageLog.Add("The rogue arrives on level "+ mapLevel);
+            MessageLog.Add("The rogue arrives on level " + mapLevel);
             MessageLog.Add("Level created with seed '" + seed + "'");
+
+            this.container = container;
+            this.staticBuffs = staticBuffs;
 
             GenerateMap();
             rootConsole.SetPlayer(Player);
@@ -47,7 +53,7 @@ namespace RogueSharpTutorial.Controller
             Draw();
         }
 
-        public void SetMapCell(int x,int y, Colors foreColor, Colors backColor, char symbol, bool isExplored)
+        public void SetMapCell(int x, int y, Colors foreColor, Colors backColor, char symbol, bool isExplored)
         {
             rootConsole.UpdateMapCell(x, y, foreColor, backColor, symbol, isExplored);
         }
@@ -86,6 +92,8 @@ namespace RogueSharpTutorial.Controller
         private void GenerateMap()
         {
             MapGenerator mapGenerator = new MapGenerator(this, mapWidth, mapHeight, 20, 13, 7, mapLevel);
+            this.container.Inject(mapGenerator);
+
             World = mapGenerator.CreateMap();
             rootConsole.GenerateMap(World);
         }
@@ -142,10 +150,15 @@ namespace RogueSharpTutorial.Controller
                     case InputCommands.CloseGame:
                         rootConsole.CloseApplication();
                         break;
+                    case InputCommands.CastSkill:
+                        break;
+                    case InputCommands.Rest:
+                        didPlayerAct = commandSystem.Rest(this.Player);
+                        break;
                     default:
                         break;
                 }
-                          
+
                 if (didPlayerAct)
                 {
                     renderRequired = true;
@@ -156,6 +169,7 @@ namespace RogueSharpTutorial.Controller
             {
                 commandSystem.ActivateMonsters();
                 renderRequired = true;
+                // TODO: trigger turn ended
             }
         }
 
