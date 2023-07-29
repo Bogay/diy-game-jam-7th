@@ -145,7 +145,7 @@ public class LoveCharacterData
     public SexualCharacteristics m_fetish;
     public int                   m_hp;
     public int                   m_attackPower;
-    public LoveSkill             m_skill;
+    public string                m_skill;
     public bool                  m_skillType;
     public float                 m_skillDuration;
     public float                 m_skillCooldown;
