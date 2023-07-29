@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f6629b3d826b414fb2ff8f5f13f4517, type: 3}
+  m_Name: Pieron_Cool_Chicken
+  m_EditorClassIdentifier: 
+  m_Data:
+    m_name: 13
+    m_chineseName: 13
+    m_sprite: {fileID: 0}
+    m_gender: 0
+    m_sexualOrientation: 2
+    m_sexualCharacteristics_01: 11
+    m_sexualCharacteristics_02: 3
+    m_sexualCharacteristics_03: 0
+    m_fetish: 4
+    m_Max_HP: 8
+    m_Attack: 4
+    m_skill: "\u6211\u7684\u88AB\u52D5\u6536\u5165"
+    m_skillType: 0
+    m_skillDuration: 0
+    m_skillCooldown: 3
+    m_skillForUs: 1
+    m_skillSpecialEffectsForUs: 8
+    m_skillForEnemy: 0
+    m_skillSpecialEffectsForEnemy: 0
+    m_skillDirection: 1
+    m_skillRange: 0
+    m_remark: 

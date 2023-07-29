@@ -15,6 +15,7 @@ public class LoveCharacterData
 
     public enum SexualCharacteristics
     {
+        None,                   //無
         S,
         M,
         Beast,                  //獸
@@ -36,13 +37,13 @@ public class LoveCharacterData
         Poor_breasts,           //貧乳
         Big_breasts,            //巨乳
         Effort,                 //努力
-        None,                   //無
     }
 
     public enum SkillSpecialEffects
     {
+        none,                                                           //無,
         buckle_blood,                                                   //扣血,
-        blood,                                                          //補血,
+        add_blood,                                                      //補血,
         Replenish_blood_according_to_the_number_of_people_around,       //身旁人數補血,
         Heals_half_damage,                                              //回复一半損傷,
         changing_sexual_characteristics,                                //變化性徵,
@@ -59,7 +60,7 @@ public class LoveCharacterData
         relieve_paralysis,                                              //解除麻痺
         paralysis_and_injury,                                           //麻痺和傷害
         harm,                                                           //傷害
-        none,                                                           //無,
+        add_one,                                                        //+1
     }
 
     public enum SkillDirection
@@ -104,38 +105,72 @@ public class LoveCharacterData
 
     public enum LoveCharaName
     {
-        fat_tiger,               //胖虎,
+        Fat_tiger,               //胖虎,
         Jacko,                   //傑哥,
         Shiba_Inu,               //柴犬,
-        billy,                   //比利,
+        Billy,                   //比利,
         Minato_Kasukabe,         //春日部湊,
-        old_beast,               //野獸前輩,
-        Nervous_adults,          // 神經大人,
-        Lord_Evil_Nervous,       //邪惡神經大人,
-        vedal,                   //vedal,
+        Beast_senpai,            //野獸前輩,
+        Neuro_sama,              //神經大人,
+        Evil_Neuro_sama,         //邪惡神經大人,
+        Vedal,                   //vedal,
         Hoshino_Ai,              //星野愛,
         Aquia,                   //阿奎亞,
         Ruby,                    //露比,
         Arima_Kana,              //有馬佳奈,
         Pieron_Cool_Chicken,     //皮耶勇酷雞,
-        little_loneliness,       //小孤獨,
-        Hongxia,                 //虹夏,
+        Little_loneliness,       //小孤獨,
+        Nijika,                  //虹夏,
         Kita,                    //喜多,
         Ryo_Yamada,              //山田涼,
         Brother_Cheng,           //誠哥,
-        asuna,                   //亞絲娜,
-        My_wife_Yuno,            //我妻由乃,
+        Asuna,                   //亞絲娜,
+        Gasai_Yuno,              //我妻由乃,
         Kirito,                  //桐人,
         Kaguya,                  //輝夜,
-        silver,                  //白銀,
+        Silver,                  //白銀,
         Takagi,                  //高木,
         Western_slices,          //西片,
         Von_Clay,                //馮克雷,
         Eva_Cove,                //伊娃科夫,
-        brave,                   //勇者,
+        Brave,                   //勇者,
+    }
+
+    public enum LoveCharaChineseName
+    {
+        胖虎,
+        傑哥,
+        柴犬,
+        比利,
+        春日部湊,
+        野獸前輩,
+         神經大人,
+        邪惡神經大人,
+        vedal,
+        星野愛,
+        阿奎亞,
+        露比,
+        有馬佳奈,
+        皮耶勇酷雞,
+        小孤獨,
+        虹夏,
+        喜多,
+        山田涼,
+        誠哥,
+        亞絲娜,
+        我妻由乃,
+        桐人,
+        輝夜,
+        白銀,
+        高木,
+        西片,
+        馮克雷,
+        伊娃科夫,
+        勇者,
     }
 
     public LoveCharaName         m_name;
+    public LoveCharaChineseName  m_chineseName;
     public Sprite                m_sprite;
     public Gender                m_gender;
     public Gender                m_sexualOrientation;
@@ -143,18 +178,18 @@ public class LoveCharacterData
     public SexualCharacteristics m_sexualCharacteristics_02;
     public SexualCharacteristics m_sexualCharacteristics_03;
     public SexualCharacteristics m_fetish;
-    public int                   m_hp;
-    public int                   m_attackPower;
+    public int                   m_Max_HP = 10;
+    public int                   m_Attack = 3;
     public string                m_skill;
-    public bool                  m_skillType;
+    public bool                  m_skillType = true;
     public float                 m_skillDuration;
-    public float                 m_skillCooldown;
-    public SkillSpecialEffects   m_skillForUs;
+    public float                 m_skillCooldown = 3;
+    public int                   m_skillForUs = 0;
     public SkillSpecialEffects   m_skillSpecialEffectsForUs;
-    public SkillSpecialEffects   m_skillForEnemy;
+    public int                   m_skillForEnemy = 0;
     public SkillSpecialEffects   m_skillSpecialEffectsForEnemy;
     public SkillDirection        m_skillDirection;
-    public int                   m_skillRange;
+    public int                   m_skillRange = 0;
     public string                m_remark;    
 }
 
