@@ -19,7 +19,7 @@ namespace RogueSharpTutorial.View
         [SerializeField] private InputKeyboard inputKeyboard;
         [SerializeField] private PlayerCamera playerCamera;
         [SerializeField] private TileUnity tilePrefab;
-        [SerializeField] private SpritesCover[] sprites;
+        [SerializeField] private CharacterSO[] sprites;
 
         [Inject]
         private DiContainer container;

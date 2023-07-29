@@ -159,7 +159,7 @@ public class LoveCharacterData
 }
 
 [CreateAssetMenu(fileName = "New Character",menuName = "SO/Create Data Asset",order = 1)]
-public class SpritesCover : ScriptableObject
+public class CharacterSO : ScriptableObject
 {
     public LoveCharacterData m_Data;
 }
