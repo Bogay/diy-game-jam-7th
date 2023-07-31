@@ -15,7 +15,7 @@ MonoBehaviour:
   m_Data:
     m_name: 3
     m_chineseName: 3
-    m_sprite: {fileID: 0}
+    m_sprite: {fileID: 21300000, guid: 899bf28a64f81334580e4a6f27b5a48f, type: 3}
     m_gender: 0
     m_sexualOrientation: 0
     m_sexualCharacteristics_01: 4
