@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f6629b3d826b414fb2ff8f5f13f4517, type: 3}
+  m_Name: Vedal
+  m_EditorClassIdentifier: 
+  m_name: 8
+  m_chineseName: 8
+  m_sprite: {fileID: 21300000, guid: b8a00986f2a99bc439b82a2b64c2573f, type: 3}
+  m_gender: 0
+  m_sexualOrientation: 0
+  m_sexualCharacteristics_01: 0
+  m_sexualCharacteristics_02: 0
+  m_sexualCharacteristics_03: 0
+  m_fetish: 0
+  m_Max_HP: 10
+  m_Attack: 3
+  m_skill: 
+  m_skillType: 1
+  m_skillDuration: 0
+  m_skillCooldown: 3
+  m_skillForUs: 0
+  m_skillSpecialEffectsForUs: 0
+  m_skillForEnemy: 0
+  m_skillSpecialEffectsForEnemy: 0
+  m_skillDirection: 0
+  m_skillRange: 0
+  m_remark: 

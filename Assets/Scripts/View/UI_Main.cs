@@ -14,18 +14,32 @@ namespace RogueSharpTutorial.View
         public event UpdateEventHandler UpdateView;
 
         //[SerializeField] private UI_Inventory   uiInventory;
-        [SerializeField] private UI_Stats uiStats;
-        [SerializeField] private UI_Messages uiMessages;
-        [SerializeField] private InputKeyboard inputKeyboard;
-        [SerializeField] private PlayerCamera playerCamera;
-        [SerializeField] private TileUnity tilePrefab;
-        [SerializeField] private CharacterSO[] sprites;
+        [SerializeField]
+        private UI_Stats uiStats;
+
+        [SerializeField]
+        private UI_Messages uiMessages;
+
+        [SerializeField]
+        private InputKeyboard inputKeyboard;
+
+        [SerializeField]
+        private PlayerCamera playerCamera;
+
+        [SerializeField]
+        private TileUnity tilePrefab;
+
+        [SerializeField]
+        private CharacterSO[] sprites;
 
         [Inject]
         private DiContainer container;
 
         private Game game;
         private TileUnity[,] mapObjects;
+
+        [Inject]
+        private CharaBinder.CharaSelect charaSelect;
 
         private void Start()
         {
@@ -53,7 +67,12 @@ namespace RogueSharpTutorial.View
             Vector3 pointOnScreen = Camera.main.WorldToScreenPoint(position);
 
             //Is in FOV
-            if ((pointOnScreen.x < 0) || (pointOnScreen.x > Screen.width) || (pointOnScreen.y < 0) || (pointOnScreen.y > Screen.height))
+            if (
+                (pointOnScreen.x < 0)
+                || (pointOnScreen.x > Screen.width)
+                || (pointOnScreen.y < 0)
+                || (pointOnScreen.y > Screen.height)
+            )
             {
                 return false;
             }
@@ -91,7 +110,14 @@ namespace RogueSharpTutorial.View
             }
         }
 
-        public void UpdateMapCell(int x, int y, Colors foreColor, Colors backColor, char symbol, bool isExplored)
+        public void UpdateMapCell(
+            int x,
+            int y,
+            Colors foreColor,
+            Colors backColor,
+            char symbol,
+            bool isExplored
+        )
         {
             TileUnity tile;
 
@@ -129,22 +155,31 @@ namespace RogueSharpTutorial.View
                 tile.TextColor = ColorMap.UnityColors[foreColor];
 
                 tile.IsAsciiTile = false;
-                if (symbol == '@')
+                if (int.TryParse(symbol.ToString(), out int symbolNum))
                 {
-                    //sprites[0].m_Data.m_sexualCharacteristics_01 = LoveCharacterData.SexualCharacteristics.Sickly;
-                    // tile.SpriteImage=(SpritesCover)Resources.Load("Scare",typeof(SpritesCover));
-                    tile.SpriteImage = sprites[1].m_Data.m_sprite;
-                    tile.SpriteImageOrder = 1;
-                }
-                else if (symbol == 'k')
-                {
-                    tile.SpriteImage = sprites[2].m_Data.m_sprite;
+                    // charaSelect = GameObject.Find("CharaSelectObject").GetComponent<CharaSelect>();
+                    tile.SpriteImage = charaSelect.characterSOs[symbolNum].m_sprite;
                     tile.SpriteImageOrder = 1;
                 }
                 else
                 {
-                    tile.SpriteImage = sprites[0].m_Data.m_sprite;
-                    tile.SpriteImageOrder = 0;
+                    switch (symbol)
+                    {
+                        case '@':
+                            tile.SpriteImage = charaSelect.characterSOs[
+                                charaSelect.currentSelect
+                            ].m_sprite;
+                            tile.SpriteImageOrder = 1;
+                            break;
+                        case 'k':
+                            tile.SpriteImage = sprites[2].m_sprite;
+                            tile.SpriteImageOrder = 1;
+                            break;
+                        default:
+                            tile.SpriteImage = sprites[0].m_sprite;
+                            tile.SpriteImageOrder = 0;
+                            break;
+                    }
                 }
             }
         }

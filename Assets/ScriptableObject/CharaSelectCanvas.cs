@@ -2,23 +2,30 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UniDi;
 using TMPro;
 
 public class CharaSelectCanvas : MonoBehaviour
 {
-    CharaSelect CSB;
-    public int currentSelect = 0;
+    [Inject]
+    public CharaBinder.CharaSelect charaSelect;
+
+    [SerializeField]
+    int _currentSelect;
+
     // public GameObject  name;
-    public GameObject  chineseName;
-    public Image  loveCharaSprite;
+    public GameObject chineseName;
+    public Image loveCharaSprite;
+
     // public GameObject  gender;
     // public GameObject  sexualOrientation;
-    public GameObject  sexualCharacteristics_01;
-    public GameObject  sexualCharacteristics_02;
-    public GameObject  sexualCharacteristics_03;
-    public GameObject  fetish;
-    public GameObject  Max_HP;
-    public GameObject  Attack;
+    public GameObject sexualCharacteristics_01;
+    public GameObject sexualCharacteristics_02;
+    public GameObject sexualCharacteristics_03;
+    public GameObject fetish;
+    public GameObject Max_HP;
+    public GameObject Attack;
+
     // public GameObject  skill;
     // public GameObject  skillType;
     // public GameObject  skillDuration;
@@ -35,43 +42,59 @@ public class CharaSelectCanvas : MonoBehaviour
     public GameObject DOWNButton;
     public GameObject HPPrefab;
     public GameObject ATKPrefab;
-    
+
     void Start()
     {
+        _currentSelect = charaSelect.currentSelect;
         SetChara();
     }
 
     private void SetChara()
     {
-        CSB = GameObject.Find("CharaSelectObject").GetComponent<CharaSelect>();
-        chineseName.GetComponent<TMP_Text>().text = CSB.chara[currentSelect].m_Data.m_chineseName.ToString();
-        sexualCharacteristics_01.GetComponent<TMP_Text>().text = CSB.chara[currentSelect].m_Data.m_sexualCharacteristics_01.ToString();
-        sexualCharacteristics_02.GetComponent<TMP_Text>().text = CSB.chara[currentSelect].m_Data.m_sexualCharacteristics_02.ToString();
-        sexualCharacteristics_03.GetComponent<TMP_Text>().text = CSB.chara[currentSelect].m_Data.m_sexualCharacteristics_03.ToString();
-        fetish.GetComponent<TMP_Text>().text = CSB.chara[currentSelect].m_Data.m_fetish.ToString();
-        loveCharaSprite.sprite = CSB.chara[currentSelect].m_Data.m_sprite;
+        if (charaSelect == null)
+            return;
+
+        chineseName.GetComponent<TMP_Text>().text = charaSelect.characterSOs[
+            _currentSelect
+        ].m_chineseName.ToString();
+        sexualCharacteristics_01.GetComponent<TMP_Text>().text = charaSelect.characterSOs[
+            _currentSelect
+        ].m_sexualCharacteristics_01.ToString();
+        sexualCharacteristics_02.GetComponent<TMP_Text>().text = charaSelect.characterSOs[
+            _currentSelect
+        ].m_sexualCharacteristics_02.ToString();
+        sexualCharacteristics_03.GetComponent<TMP_Text>().text = charaSelect.characterSOs[
+            _currentSelect
+        ].m_sexualCharacteristics_03.ToString();
+        fetish.GetComponent<TMP_Text>().text = charaSelect.characterSOs[
+            _currentSelect
+        ].m_fetish.ToString();
+        loveCharaSprite.sprite = charaSelect.characterSOs[_currentSelect].m_sprite;
 
         SetHPUI();
         SetATKUI();
+        charaSelect.currentSelect = _currentSelect;
+        Debug.Log(_currentSelect);
+        Debug.Log(charaSelect.currentSelect);
     }
 
     void SetHPUI()
     {
         ResetChild(Max_HP);
-        int max_hp = CSB.chara[currentSelect].m_Data.m_Max_HP;
+        int max_hp = charaSelect.characterSOs[_currentSelect].m_Max_HP;
         for (int i = 0; i < max_hp; i++)
         {
-            Instantiate(HPPrefab,Max_HP.transform);
+            Instantiate(HPPrefab, Max_HP.transform);
         }
     }
 
     void SetATKUI()
     {
         ResetChild(Attack);
-        int atk = CSB.chara[currentSelect].m_Data.m_Attack;
+        int atk = charaSelect.characterSOs[_currentSelect].m_Attack;
         for (int i = 0; i < atk; i++)
         {
-            Instantiate(ATKPrefab,Attack.transform);
+            Instantiate(ATKPrefab, Attack.transform);
         }
     }
 
@@ -86,22 +109,22 @@ public class CharaSelectCanvas : MonoBehaviour
 
     public void currentSelect_Add()
     {
-        if(currentSelect < CSB.chara.Count)
-            currentSelect++;
+        if (_currentSelect < charaSelect.characterSOs.Count - 1)
+            _currentSelect++;
         else
-            currentSelect = 0;
-        Debug.Log("currentSelect_Add");
+            _currentSelect = 0;
+        // Debug.Log("_currentSelect_Add");
+
         SetChara();
     }
 
     public void currentSelect_Reduce()
     {
-        if(currentSelect > 0)
-            currentSelect--;
+        if (_currentSelect > 0)
+            _currentSelect--;
         else
-            currentSelect = CSB.chara.Count - 1;
-        Debug.Log("currentSelect_Reduce");
+            _currentSelect = charaSelect.characterSOs.Count - 1;
+        // Debug.Log("_currentSelect_Reduce");
         SetChara();
     }
-
 }

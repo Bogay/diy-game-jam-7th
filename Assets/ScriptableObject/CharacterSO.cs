@@ -2,10 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable]
-public class LoveCharacterData
+[CreateAssetMenu(fileName = "New Character", menuName = "SO/Create Data Asset", order = 1)]
+public class CharacterSO : ScriptableObject
 {
-
     public enum Gender
     {
         male,
@@ -107,10 +106,10 @@ public class LoveCharacterData
 
     public enum SkillDirection
     {
-        facing,             //面向
-        itself,             //自身
-        around,             //四周
-        selfAndFacing,      //自身&面向
+        facing, //面向
+        itself, //自身
+        around, //四周
+        selfAndFacing, //自身&面向
     }
 
     public enum LoveSkill
@@ -175,35 +174,37 @@ public class LoveCharacterData
 
     public enum LoveCharaName
     {
-        Fat_tiger,               //胖虎,
-        Jacko,                   //傑哥,
-        Shiba_Inu,               //柴犬,
-        Billy,                   //比利,
-        Minato_Kasukabe,         //春日部湊,
-        Beast_senpai,            //野獸前輩,
-        Neuro_sama,              //神經大人,
-        Evil_Neuro_sama,         //邪惡神經大人,
-        Vedal,                   //vedal,
-        Hoshino_Ai,              //星野愛,
-        Aquia,                   //阿奎亞,
-        Ruby,                    //露比,
-        Arima_Kana,              //有馬佳奈,
-        Pieron_Cool_Chicken,     //皮耶勇酷雞,
-        Little_loneliness,       //小孤獨,
-        Nijika,                  //虹夏,
-        Kita,                    //喜多,
-        Ryo_Yamada,              //山田涼,
-        Brother_Cheng,           //誠哥,
-        Asuna,                   //亞絲娜,
-        Gasai_Yuno,              //我妻由乃,
-        Kirito,                  //桐人,
-        Kaguya,                  //輝夜,
-        Silver,                  //白銀,
-        Takagi,                  //高木,
-        Western_slices,          //西片,
-        Von_Clay,                //馮克雷,
-        Eva_Cove,                //伊娃科夫,
-        Brave,                   //勇者,
+        Fat_tiger, //胖虎,
+        Jacko, //傑哥,
+        Shiba_Inu, //柴犬,
+        Billy, //比利,
+        Minato_Kasukabe, //春日部湊,
+        Beast_senpai, //野獸前輩,
+        Neuro_sama, //神經大人,
+        Evil_Neuro_sama, //邪惡神經大人,
+        Vedal, //vedal,
+        Hoshino_Ai, //星野愛,
+        Aquia, //阿奎亞,
+        Ruby, //露比,
+        Arima_Kana, //有馬佳奈,
+        Pieron_Cool_Chicken, //皮耶勇酷雞,
+        Little_loneliness, //小孤獨,
+        Nijika, //虹夏,
+        Kita, //喜多,
+        Ryo_Yamada, //山田涼,
+        Brother_Cheng, //誠哥,
+        Asuna, //亞絲娜,
+        Gasai_Yuno, //我妻由乃,
+        Kirito, //桐人,
+        Kaguya, //輝夜,
+        Silver, //白銀,
+        Takagi, //高木,
+        Nishikata, //西片,
+        Von_Clay, //馮克雷,
+        Eva_Cove, //伊娃科夫,
+        Brave, //勇者,
+        Cao_Cao, //曹操
+        Raikage, //雷影
     }
 
     public enum LoveCharaChineseName
@@ -214,7 +215,7 @@ public class LoveCharacterData
         比利,
         春日部湊,
         野獸前輩,
-         神經大人,
+        神經大人,
         邪惡神經大人,
         vedal,
         星野愛,
@@ -237,36 +238,30 @@ public class LoveCharacterData
         馮克雷,
         伊娃科夫,
         勇者,
+        曹操,
+        雷影,
     }
 
-    public LoveCharaName         m_name;
-    public LoveCharaChineseName  m_chineseName;
-    public Sprite                m_sprite;
-    public Gender                m_gender;
-    public Gender                m_sexualOrientation;
+    public LoveCharaName m_name;
+    public LoveCharaChineseName m_chineseName;
+    public Sprite m_sprite;
+    public Gender m_gender;
+    public Gender m_sexualOrientation;
     public SexualCharacteristics m_sexualCharacteristics_01;
     public SexualCharacteristics m_sexualCharacteristics_02;
     public SexualCharacteristics m_sexualCharacteristics_03;
     public SexualCharacteristics m_fetish;
-    public int                   m_Max_HP = 10;
-    public int                   m_Attack = 3;
-    public string                m_skill;
-    public bool                  m_skillType = true;
-    public float                 m_skillDuration;
-    public float                 m_skillCooldown = 3;
-    public int                   m_skillForUs = 0;
-    public SkillSpecialEffects   m_skillSpecialEffectsForUs;
-    public int                   m_skillForEnemy = 0;
-    public SkillSpecialEffects   m_skillSpecialEffectsForEnemy;
-    public SkillDirection        m_skillDirection;
-    public int                   m_skillRange = 0;
-    public string                m_remark;    
+    public int m_Max_HP = 10;
+    public int m_Attack = 3;
+    public string m_skill;
+    public bool m_skillType = true;
+    public float m_skillDuration;
+    public float m_skillCooldown = 3;
+    public int m_skillForUs = 0;
+    public SkillSpecialEffects m_skillSpecialEffectsForUs;
+    public int m_skillForEnemy = 0;
+    public SkillSpecialEffects m_skillSpecialEffectsForEnemy;
+    public SkillDirection m_skillDirection;
+    public int m_skillRange = 0;
+    public string m_remark;
 }
-
-[CreateAssetMenu(fileName = "New Character",menuName = "SO/Create Data Asset",order = 1)]
-public class CharacterSO : ScriptableObject
-{
-    public LoveCharacterData m_Data;
-}
-
-

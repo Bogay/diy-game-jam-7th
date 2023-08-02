@@ -266,7 +266,7 @@ namespace RogueSharpTutorial.Model
 
                         if (randomRoomLocation != Point.Zero)                               // It's possible that the room doesn't have space to place a monster
                         {                                                                   // In that case skip creating the monster                           
-                            var monster = Kobold.Create(1, game);                           // Temporarily hard code this monster to be created at level 1
+                            var monster = LoveCharacters.Create(1, game);                           // Temporarily hard code this monster to be created at level 1
                             this.installStaticBuff(monster);
                             monster.X = randomRoomLocation.X;
                             monster.Y = randomRoomLocation.Y;
