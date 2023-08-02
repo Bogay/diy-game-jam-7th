@@ -8,12 +8,16 @@ public class CharaBinder : MonoInstaller
     public override void InstallBindings()
     {
         Container.Bind<CharaSelect>().AsSingle();
+        Container.Bind<PlayerChara>().AsSingle();
+    }
+
+    public class PlayerChara
+    {
+        public int currentSelect { get; set; }
     }
 
     public class CharaSelect
     {
-        public int currentSelect { get; set; }
-
         public List<CharacterSO> characterSOs = new List<CharacterSO>
         {
             Resources.Load<CharacterSO>("LoveCharacter/Fat_tiger"),

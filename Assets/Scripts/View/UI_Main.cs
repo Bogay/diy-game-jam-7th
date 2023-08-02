@@ -41,6 +41,9 @@ namespace RogueSharpTutorial.View
         [Inject]
         private CharaBinder.CharaSelect charaSelect;
 
+        [Inject]
+        private CharaBinder.PlayerChara playerChara;
+
         private void Start()
         {
             //uiInventory     = GetComponent<UI_Inventory>();
@@ -50,6 +53,7 @@ namespace RogueSharpTutorial.View
             // game = new Game(this);
             // container.Inject(game);
             game = this.container.Instantiate<Game>();
+            Debug.Log(playerChara.currentSelect);
         }
 
         private void Update()
@@ -157,7 +161,6 @@ namespace RogueSharpTutorial.View
                 tile.IsAsciiTile = false;
                 if (int.TryParse(symbol.ToString(), out int symbolNum))
                 {
-                    // charaSelect = GameObject.Find("CharaSelectObject").GetComponent<CharaSelect>();
                     tile.SpriteImage = charaSelect.characterSOs[symbolNum].m_sprite;
                     tile.SpriteImageOrder = 1;
                 }
@@ -167,7 +170,7 @@ namespace RogueSharpTutorial.View
                     {
                         case '@':
                             tile.SpriteImage = charaSelect.characterSOs[
-                                charaSelect.currentSelect
+                                playerChara.currentSelect
                             ].m_sprite;
                             tile.SpriteImageOrder = 1;
                             break;

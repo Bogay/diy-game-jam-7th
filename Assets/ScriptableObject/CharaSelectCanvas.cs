@@ -10,8 +10,10 @@ public class CharaSelectCanvas : MonoBehaviour
     [Inject]
     public CharaBinder.CharaSelect charaSelect;
 
-    [SerializeField]
-    int _currentSelect;
+    [Inject]
+    public CharaBinder.PlayerChara playerChara;
+
+    public int _currentSelect;
 
     // public GameObject  name;
     public GameObject chineseName;
@@ -45,7 +47,7 @@ public class CharaSelectCanvas : MonoBehaviour
 
     void Start()
     {
-        _currentSelect = charaSelect.currentSelect;
+        _currentSelect = playerChara.currentSelect;
         SetChara();
     }
 
@@ -73,9 +75,9 @@ public class CharaSelectCanvas : MonoBehaviour
 
         SetHPUI();
         SetATKUI();
-        charaSelect.currentSelect = _currentSelect;
+        playerChara.currentSelect = _currentSelect;
         Debug.Log(_currentSelect);
-        Debug.Log(charaSelect.currentSelect);
+        Debug.Log(playerChara.currentSelect);
     }
 
     void SetHPUI()
