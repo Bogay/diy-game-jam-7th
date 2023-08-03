@@ -1372,8 +1372,6 @@ MonoBehaviour:
   tilePrefab: {fileID: 114081800238575896, guid: 832fd3dd2b8511e46b4a7e2395265679, type: 3}
   sprites:
   - {fileID: 11400000, guid: ede9cf6db8f7cf240a3d459249a9af3c, type: 2}
-  - {fileID: 11400000, guid: 97f0854e89c84924cbabff0512392244, type: 2}
-  - {fileID: 11400000, guid: 2d4a0af7ec9c11348ac5983fd4afc144, type: 2}
 --- !u!4 &1929674591
 Transform:
   m_ObjectHideFlags: 0

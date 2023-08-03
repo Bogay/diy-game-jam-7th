@@ -174,8 +174,8 @@ namespace RogueSharpTutorial.View
                             ].m_sprite;
                             tile.SpriteImageOrder = 1;
                             break;
-                        case 'k':
-                            tile.SpriteImage = sprites[2].m_sprite;
+                        case 'x':
+                            tile.SpriteImage = charaSelect.characterSOs[1].m_sprite;
                             tile.SpriteImageOrder = 1;
                             break;
                         default:
