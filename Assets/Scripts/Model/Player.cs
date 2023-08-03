@@ -7,7 +7,8 @@ namespace RogueSharpTutorial.Model
 {
     public class Player : Actor
     {
-        public Player(Game game) : base(game)
+        public Player(Game game)
+            : base(game)
         {
             Attack = 2;
             AttackChance = 50;

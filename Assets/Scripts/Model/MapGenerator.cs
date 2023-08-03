@@ -137,9 +137,25 @@ namespace RogueSharpTutorial.Model
         private void PlacePlayer(Game game)
         {
             Player player = game.Player;
+            currentChara = charaSelect.characterSOs[playerChara.currentSelect];
+
             if (player == null)
             {
-                player = new Player(game);
+                player = new Player(game)
+                {
+                    Attack = currentChara.m_Attack,
+                    AttackChance = 50,
+                    Awareness = 10,
+                    Color = Colors.Player,
+                    Defense = 2,
+                    DefenseChance = 40,
+                    Gold = 0,
+                    Health = currentChara.m_Max_HP,
+                    MaxHealth = currentChara.m_Max_HP,
+                    Name = currentChara.m_chineseName.ToString(),
+                    Speed = 10,
+                    Symbol = '@',
+                };
                 this.installStaticBuff(player);
             }
 
