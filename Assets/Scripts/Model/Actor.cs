@@ -12,6 +12,7 @@ namespace RogueSharpTutorial.Model
     {
         public event UpdateAttack OnAttack;
         public event UpdateAttack OnDefense;
+
         // TODO: naming
         // it is ued to update attacker / defender properties, we may need to use another type
         public event UpdateAttack OnDamaged;
@@ -21,25 +22,71 @@ namespace RogueSharpTutorial.Model
 
         // IActor
         private int attack;
-        public int Attack { get { return attack; } set { attack = value; } }
+        public int Attack
+        {
+            get { return attack; }
+            set { attack = value; }
+        }
         private int attackChance;
-        public int AttackChance { get { return attackChance; } set { attackChance = value; } }
+        public int AttackChance
+        {
+            get { return attackChance; }
+            set { attackChance = value; }
+        }
+        private CharacterSO.Gender gender;
+        public CharacterSO.Gender Gender
+        {
+            get { return gender; }
+            set { gender = value; }
+        }
         private int defense;
-        public int Defense { get { return defense; } set { defense = value; } }
+        public int Defense
+        {
+            get { return defense; }
+            set { defense = value; }
+        }
         private int defenseChance;
-        public int DefenseChance { get { return defenseChance; } set { defenseChance = value; } }
+        public int DefenseChance
+        {
+            get { return defenseChance; }
+            set { defenseChance = value; }
+        }
         private int gold;
-        public int Gold { get { return gold; } set { gold = value; } }
+        public int Gold
+        {
+            get { return gold; }
+            set { gold = value; }
+        }
         private int health;
-        public int Health { get { return health; } set { health = Math.Min(value, MaxHealth); } }
+        public int Health
+        {
+            get { return health; }
+            set { health = Math.Min(value, MaxHealth); }
+        }
         private int maxHealth;
-        public int MaxHealth { get { return maxHealth; } set { maxHealth = value; } }
+        public int MaxHealth
+        {
+            get { return maxHealth; }
+            set { maxHealth = value; }
+        }
         private int speed;
-        public int Speed { get { return speed; } set { speed = value; } }
+        public int Speed
+        {
+            get { return speed; }
+            set { speed = value; }
+        }
         private string name;
-        public string Name { get { return name; } set { name = value; } }
+        public string Name
+        {
+            get { return name; }
+            set { name = value; }
+        }
         private int awareness;
-        public int Awareness { get { return awareness; } set { awareness = value; } }
+        public int Awareness
+        {
+            get { return awareness; }
+            set { awareness = value; }
+        }
 
         // IDrawable
         public Colors Color { get; set; }
@@ -48,7 +95,10 @@ namespace RogueSharpTutorial.Model
         public int Y { get; set; }
 
         // Ischeduleable
-        public int Time { get { return Speed; } }
+        public int Time
+        {
+            get { return Speed; }
+        }
 
         protected Game game;
 
@@ -63,49 +113,75 @@ namespace RogueSharpTutorial.Model
             // Only draw the actor with the color and symbol when they are in field-of-view
             if (map.IsInFov(X, Y))
             {
-                game.SetMapCell(X, Y, Color, Colors.FloorBackgroundFov, Symbol, map.GetCell(X, Y).IsExplored);
+                game.SetMapCell(
+                    X,
+                    Y,
+                    Color,
+                    Colors.FloorBackgroundFov,
+                    Symbol,
+                    map.GetCell(X, Y).IsExplored
+                );
             }
             else
             {
                 // When not in field-of-view just draw a normal floor
-                game.SetMapCell(X, Y, Colors.Floor, Colors.FloorBackground, '.', map.GetCell(X, Y).IsExplored);
+                game.SetMapCell(
+                    X,
+                    Y,
+                    Colors.Floor,
+                    Colors.FloorBackground,
+                    '.',
+                    map.GetCell(X, Y).IsExplored
+                );
             }
         }
 
         public void PrepareAttack(Actor defender, AttackData attackData)
         {
-            if (this.OnAttack == null) return;
+            if (this.OnAttack == null)
+                return;
 
-            this.OnAttack(this, new UpdateAttackArgs
-            {
-                attacker = this,
-                defender = defender,
-                attackData = attackData,
-            });
+            this.OnAttack(
+                this,
+                new UpdateAttackArgs
+                {
+                    attacker = this,
+                    defender = defender,
+                    attackData = attackData,
+                }
+            );
         }
 
         public void PrepareDefense(Actor attacker, AttackData attackData)
         {
-            if (this.OnDefense == null) return;
+            if (this.OnDefense == null)
+                return;
 
-            this.OnDefense(this, new UpdateAttackArgs
-            {
-                attacker = attacker,
-                defender = this,
-                attackData = attackData,
-            });
+            this.OnDefense(
+                this,
+                new UpdateAttackArgs
+                {
+                    attacker = attacker,
+                    defender = this,
+                    attackData = attackData,
+                }
+            );
         }
 
         public void ResolveDamage(AttackData attackData)
         {
-            if (this.OnDamaged == null) return;
+            if (this.OnDamaged == null)
+                return;
 
-            this.OnDamaged(this, new UpdateAttackArgs
-            {
-                attacker = null,
-                defender = this,
-                attackData = attackData,
-            });
+            this.OnDamaged(
+                this,
+                new UpdateAttackArgs
+                {
+                    attacker = null,
+                    defender = this,
+                    attackData = attackData,
+                }
+            );
         }
 
         public void AddBuff(BuffData buff)
@@ -126,11 +202,7 @@ namespace RogueSharpTutorial.Model
 
         public void ResolveRest(AttackData restData)
         {
-            this.OnRest?.Invoke(this, new RestArgs
-            {
-                Actor = this,
-                Value = restData,
-            });
+            this.OnRest?.Invoke(this, new RestArgs { Actor = this, Value = restData, });
         }
     }
 }

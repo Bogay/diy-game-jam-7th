@@ -36,6 +36,7 @@ public class CharacterSO : ScriptableObject
         貧乳,
         巨乳,
         努力,
+        人妻,
         //None,                   //無
         //S,                      //S
         //M,                      //M
@@ -125,7 +126,7 @@ public class CharacterSO : ScriptableObject
         Debug,
         騙子又怎樣呢,
         我前世是醫生,
-        表演,
+        showTime,
         配合演技,
         年薪一億_被動收入,
         吉他英雄,
@@ -142,6 +143,8 @@ public class CharacterSO : ScriptableObject
         人妖拳法,
         賀爾蒙果實,
         邀請之劍,
+        曹氏宗親會集合,
+        雷影_開始行動,
         //man_i_m_coming_in,                              //小夫我要進來了,
         //Listen_and_let_me_see,                          //聽話讓我看看,
         //Can_t_flirt,                                    //不可以色色,
@@ -253,7 +256,7 @@ public class CharacterSO : ScriptableObject
     public SexualCharacteristics m_fetish;
     public int m_Max_HP = 10;
     public int m_Attack = 3;
-    public string m_skill;
+    public LoveSkill m_skill;
     public bool m_skillType = true;
     public float m_skillDuration;
     public float m_skillCooldown = 3;

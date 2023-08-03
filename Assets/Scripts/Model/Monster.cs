@@ -1,4 +1,5 @@
 ﻿using RogueSharpTutorial.Controller;
+using UnityEngine;
 
 namespace RogueSharpTutorial.Model
 {
@@ -6,7 +7,8 @@ namespace RogueSharpTutorial.Model
     {
         public int? TurnsAlerted { get; set; }
 
-        public Monster(Game game) : base(game) { }
+        public Monster(Game game)
+            : base(game) { }
 
         public void DrawStats(int position)
         {

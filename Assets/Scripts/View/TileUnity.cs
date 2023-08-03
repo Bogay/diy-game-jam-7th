@@ -1,16 +1,37 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using RogueSharpTutorial.Utilities;
+using UniDi;
 
 namespace RogueSharpTutorial.View
 {
     public class TileUnity : PooledObject
     {
-        [SerializeField] GameObject backgroundObject;
-        [SerializeField] GameObject spriteObject;
-        [SerializeField] GameObject textObject;
+        [SerializeField]
+        GameObject backgroundObject;
+
+        [SerializeField]
+        GameObject spriteObject;
+
+        [SerializeField]
+        GameObject textObject;
+
+        [SerializeField]
+        UI_Stats uiState;
+
+        public int monsterIndex = -1;
 
         public bool IsAsciiTile { get; set; }
+
+        [Inject]
+        public CharaBinder.CharaSelect charaSelect;
+
+        // int listCount;
+        // int randomChara;
+        // CharacterSO currentChara;
+
+        [Inject]
+        public CharaBinder.PlayerChara playerChara;
 
         /// <summary>
         /// Enable or disable the background and character sprites and text object. Will disable/enable the underlying gameobject for each.
@@ -35,6 +56,26 @@ namespace RogueSharpTutorial.View
             }
         }
 
+        private void Start()
+        {
+            uiState = GameObject.Find("_MainUI").GetComponent<UI_Stats>();
+        }
+
+        public int OnMouseEnter()
+        {
+            if (monsterIndex != -1)
+            {
+                uiState.enemyUI.SetActive(true);
+                uiState.SetEnemyUI(monsterIndex);
+            }
+            else
+            {
+                uiState.enemyUI.SetActive(false);
+            }
+            // Debug.Log("Mouse is Enter GameObject." + monsterIndex);
+            return monsterIndex;
+        }
+
         /// <summary>
         /// Set or Get the sprite of the Background Image.
         /// </summary>
@@ -52,18 +93,19 @@ namespace RogueSharpTutorial.View
         {
             set
             {
-                if (value < 0) value = 0;
-                if (value > 1) value = 1;
+                if (value < 0)
+                    value = 0;
+                if (value > 1)
+                    value = 1;
 
-                backgroundObject.GetComponent<SpriteRenderer>().color = new Color(backgroundObject.GetComponent<SpriteRenderer>().color.r,
-                                                                                  backgroundObject.GetComponent<SpriteRenderer>().color.g,
-                                                                                  backgroundObject.GetComponent<SpriteRenderer>().color.b,
-                                                                                  value);
+                backgroundObject.GetComponent<SpriteRenderer>().color = new Color(
+                    backgroundObject.GetComponent<SpriteRenderer>().color.r,
+                    backgroundObject.GetComponent<SpriteRenderer>().color.g,
+                    backgroundObject.GetComponent<SpriteRenderer>().color.b,
+                    value
+                );
             }
-            get
-            {
-                return backgroundObject.GetComponent<SpriteRenderer>().color.a;
-            }
+            get { return backgroundObject.GetComponent<SpriteRenderer>().color.a; }
         }
 
         /// <summary>
@@ -74,18 +116,19 @@ namespace RogueSharpTutorial.View
         {
             set
             {
-                if (value < 0) value = 0;
-                if (value > 255) value = 255;
+                if (value < 0)
+                    value = 0;
+                if (value > 255)
+                    value = 255;
 
-                backgroundObject.GetComponent<SpriteRenderer>().color = new Color(backgroundObject.GetComponent<SpriteRenderer>().color.r,
-                                                                                  backgroundObject.GetComponent<SpriteRenderer>().color.g,
-                                                                                  backgroundObject.GetComponent<SpriteRenderer>().color.b,
-                                                                                  value / 255);
+                backgroundObject.GetComponent<SpriteRenderer>().color = new Color(
+                    backgroundObject.GetComponent<SpriteRenderer>().color.r,
+                    backgroundObject.GetComponent<SpriteRenderer>().color.g,
+                    backgroundObject.GetComponent<SpriteRenderer>().color.b,
+                    value / 255
+                );
             }
-            get
-            {
-                return (int)(backgroundObject.GetComponent<SpriteRenderer>().color.a * 255);
-            }
+            get { return (int)(backgroundObject.GetComponent<SpriteRenderer>().color.a * 255); }
         }
 
         /// <summary>
@@ -96,7 +139,12 @@ namespace RogueSharpTutorial.View
         {
             set
             {
-                backgroundObject.GetComponent<SpriteRenderer>().color = new Color(value.r, value.g, value.b, backgroundObject.GetComponent<SpriteRenderer>().color.a);
+                backgroundObject.GetComponent<SpriteRenderer>().color = new Color(
+                    value.r,
+                    value.g,
+                    value.b,
+                    backgroundObject.GetComponent<SpriteRenderer>().color.a
+                );
             }
         }
 
@@ -106,13 +154,15 @@ namespace RogueSharpTutorial.View
         /// <param name="color"></param>
         public Color BackgroundColorWithAlpha
         {
-            get
-            {
-                return backgroundObject.GetComponent<SpriteRenderer>().color;
-            }
+            get { return backgroundObject.GetComponent<SpriteRenderer>().color; }
             set
             {
-                backgroundObject.GetComponent<SpriteRenderer>().color = new Color(value.r, value.g, value.b, value.a);
+                backgroundObject.GetComponent<SpriteRenderer>().color = new Color(
+                    value.r,
+                    value.g,
+                    value.b,
+                    value.a
+                );
             }
         }
 
@@ -139,18 +189,19 @@ namespace RogueSharpTutorial.View
         {
             set
             {
-                if (value < 0) value = 0;
-                if (value > 1) value = 1;
+                if (value < 0)
+                    value = 0;
+                if (value > 1)
+                    value = 1;
 
-                spriteObject.GetComponent<SpriteRenderer>().color = new Color(spriteObject.GetComponent<SpriteRenderer>().color.r,
-                                                                              spriteObject.GetComponent<SpriteRenderer>().color.g,
-                                                                              spriteObject.GetComponent<SpriteRenderer>().color.b,
-                                                                              value);
+                spriteObject.GetComponent<SpriteRenderer>().color = new Color(
+                    spriteObject.GetComponent<SpriteRenderer>().color.r,
+                    spriteObject.GetComponent<SpriteRenderer>().color.g,
+                    spriteObject.GetComponent<SpriteRenderer>().color.b,
+                    value
+                );
             }
-            get
-            {
-                return spriteObject.GetComponent<SpriteRenderer>().color.a;
-            }
+            get { return spriteObject.GetComponent<SpriteRenderer>().color.a; }
         }
 
         /// <summary>
@@ -161,18 +212,19 @@ namespace RogueSharpTutorial.View
         {
             set
             {
-                if (value < 0) value = 0;
-                if (value > 255) value = 255;
+                if (value < 0)
+                    value = 0;
+                if (value > 255)
+                    value = 255;
 
-                spriteObject.GetComponent<SpriteRenderer>().color = new Color(spriteObject.GetComponent<SpriteRenderer>().color.r,
-                                                                              spriteObject.GetComponent<SpriteRenderer>().color.g,
-                                                                              spriteObject.GetComponent<SpriteRenderer>().color.b,
-                                                                              value / 255);
+                spriteObject.GetComponent<SpriteRenderer>().color = new Color(
+                    spriteObject.GetComponent<SpriteRenderer>().color.r,
+                    spriteObject.GetComponent<SpriteRenderer>().color.g,
+                    spriteObject.GetComponent<SpriteRenderer>().color.b,
+                    value / 255
+                );
             }
-            get
-            {
-                return (int)(spriteObject.GetComponent<SpriteRenderer>().color.a * 255);
-            }
+            get { return (int)(spriteObject.GetComponent<SpriteRenderer>().color.a * 255); }
         }
 
         /// <summary>
@@ -183,7 +235,12 @@ namespace RogueSharpTutorial.View
         {
             set
             {
-                spriteObject.GetComponent<SpriteRenderer>().color = new Color(value.r, value.g, value.b, spriteObject.GetComponent<SpriteRenderer>().color.a);
+                spriteObject.GetComponent<SpriteRenderer>().color = new Color(
+                    value.r,
+                    value.g,
+                    value.b,
+                    spriteObject.GetComponent<SpriteRenderer>().color.a
+                );
             }
         }
 
@@ -193,13 +250,15 @@ namespace RogueSharpTutorial.View
         /// <param name="color"></param>
         public Color MainSpriteColorWithAlpha
         {
-            get
-            {
-                return spriteObject.GetComponent<SpriteRenderer>().color;
-            }
+            get { return spriteObject.GetComponent<SpriteRenderer>().color; }
             set
             {
-                spriteObject.GetComponent<SpriteRenderer>().color = new Color(value.r, value.g, value.b, value.a);
+                spriteObject.GetComponent<SpriteRenderer>().color = new Color(
+                    value.r,
+                    value.g,
+                    value.b,
+                    value.a
+                );
             }
         }
 
@@ -230,18 +289,19 @@ namespace RogueSharpTutorial.View
         {
             set
             {
-                if (value < 0) value = 0;
-                if (value > 1) value = 1;
+                if (value < 0)
+                    value = 0;
+                if (value > 1)
+                    value = 1;
 
-                textObject.GetComponent<Text>().color = new Color(textObject.GetComponent<Text>().color.r,
-                                                                  textObject.GetComponent<Text>().color.g,
-                                                                  textObject.GetComponent<Text>().color.b,
-                                                                  value);
+                textObject.GetComponent<Text>().color = new Color(
+                    textObject.GetComponent<Text>().color.r,
+                    textObject.GetComponent<Text>().color.g,
+                    textObject.GetComponent<Text>().color.b,
+                    value
+                );
             }
-            get
-            {
-                return textObject.GetComponent<Text>().color.a;
-            }
+            get { return textObject.GetComponent<Text>().color.a; }
         }
 
         /// <summary>
@@ -252,18 +312,19 @@ namespace RogueSharpTutorial.View
         {
             set
             {
-                if (value < 0) value = 0;
-                if (value > 255) value = 255;
+                if (value < 0)
+                    value = 0;
+                if (value > 255)
+                    value = 255;
 
-                textObject.GetComponent<Text>().color = new Color(textObject.GetComponent<Text>().color.r,
-                                                                  textObject.GetComponent<Text>().color.g,
-                                                                  textObject.GetComponent<Text>().color.b,
-                                                                  value / 255);
+                textObject.GetComponent<Text>().color = new Color(
+                    textObject.GetComponent<Text>().color.r,
+                    textObject.GetComponent<Text>().color.g,
+                    textObject.GetComponent<Text>().color.b,
+                    value / 255
+                );
             }
-            get
-            {
-                return (int)(textObject.GetComponent<Text>().color.a * 255);
-            }
+            get { return (int)(textObject.GetComponent<Text>().color.a * 255); }
         }
 
         /// <summary>
@@ -274,7 +335,12 @@ namespace RogueSharpTutorial.View
         {
             set
             {
-                textObject.GetComponent<Text>().color = new Color(value.r, value.g, value.b, textObject.GetComponent<Text>().color.a);
+                textObject.GetComponent<Text>().color = new Color(
+                    value.r,
+                    value.g,
+                    value.b,
+                    textObject.GetComponent<Text>().color.a
+                );
             }
         }
 
@@ -284,13 +350,15 @@ namespace RogueSharpTutorial.View
         /// <param name="color"></param>
         public Color TextColorWithAlpha
         {
-            get
-            {
-                return textObject.GetComponent<Text>().color;
-            }
+            get { return textObject.GetComponent<Text>().color; }
             set
             {
-                textObject.GetComponent<Text>().color = new Color(value.r, value.g, value.b, value.a);
+                textObject.GetComponent<Text>().color = new Color(
+                    value.r,
+                    value.g,
+                    value.b,
+                    value.a
+                );
             }
         }
     }

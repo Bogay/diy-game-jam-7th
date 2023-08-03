@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace RogueSharpTutorial.Model
 {
-    public class MapGenerator
+    public class MapGenerator : MonoBehaviour
     {
         private readonly int width;
         private readonly int height;

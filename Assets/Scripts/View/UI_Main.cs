@@ -164,6 +164,7 @@ namespace RogueSharpTutorial.View
                 tile.BackgroundColor = ColorMap.UnityColors[backColor];
                 tile.Text = symbol;
                 tile.TextColor = ColorMap.UnityColors[foreColor];
+                // uiStats.enemyUI.SetActive(false);
 
                 tile.IsAsciiTile = false;
                 switch (symbol)
@@ -180,11 +181,13 @@ namespace RogueSharpTutorial.View
                         {
                             tile.SpriteImage = charaSelect.characterSOs[number].m_sprite;
                             tile.SpriteImageOrder = 1;
+                            tile.monsterIndex = number;
                             break;
                         }
 
                         tile.SpriteImage = sprites[0].m_sprite;
                         tile.SpriteImageOrder = 0;
+                        tile.monsterIndex = -1;
                         break;
                 }
                 // }

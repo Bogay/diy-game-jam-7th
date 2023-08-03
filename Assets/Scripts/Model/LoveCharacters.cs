@@ -4,6 +4,7 @@ using RogueSharpTutorial.Controller;
 using RogueSharpTutorial.View;
 using UniDi;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace RogueSharpTutorial.Model
 {

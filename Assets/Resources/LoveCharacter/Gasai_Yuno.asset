@@ -15,22 +15,22 @@ MonoBehaviour:
   m_name: 20
   m_chineseName: 20
   m_sprite: {fileID: 21300000, guid: df134a43107487446a274bc5d4869de2, type: 3}
-  m_gender: 0
+  m_gender: 1
   m_sexualOrientation: 0
-  m_sexualCharacteristics_01: 0
-  m_sexualCharacteristics_02: 0
+  m_sexualCharacteristics_01: 16
+  m_sexualCharacteristics_02: 22
   m_sexualCharacteristics_03: 0
   m_fetish: 0
   m_Max_HP: 10
   m_Attack: 3
-  m_skill: 
+  m_skill: 20
   m_skillType: 1
   m_skillDuration: 0
   m_skillCooldown: 3
   m_skillForUs: 0
   m_skillSpecialEffectsForUs: 0
-  m_skillForEnemy: 0
-  m_skillSpecialEffectsForEnemy: 0
+  m_skillForEnemy: 1
+  m_skillSpecialEffectsForEnemy: 17
   m_skillDirection: 0
-  m_skillRange: 0
+  m_skillRange: 1
   m_remark: 
