@@ -7,11 +7,11 @@ namespace RogueSharpTutorial.Model
 {
     public class Stairs : IDrawable
     {
-        public Colors   Color           { get; set; }
-        public bool     IsUp            { get; set; }
-        public char     Symbol          { get; set; }
-        public int      X               { get; set; }
-        public int      Y               { get; set; }
+        public Colors Color { get; set; }
+        public bool IsUp { get; set; }
+        public char Symbol { get; set; }
+        public int X { get; set; }
+        public int Y { get; set; }
 
         private Game game;
 
@@ -38,7 +38,14 @@ namespace RogueSharpTutorial.Model
                 Color = Colors.Floor;
             }
 
-            game.SetMapCell(X, Y, Color, Colors.FloorBackground, Symbol, map.GetCell(X, Y).IsExplored);
+            game.SetMapCell(
+                X,
+                Y,
+                Color,
+                Colors.FloorBackground,
+                Symbol,
+                map.GetCell(X, Y).IsExplored
+            );
         }
     }
 }

@@ -27,7 +27,7 @@ namespace RogueSharpTutorial.Model
                 MaxHealth = health,
                 Name = "Kobold",
                 Speed = 14,
-                Symbol = 'x'
+                Symbol = '1'
             };
         }
     }

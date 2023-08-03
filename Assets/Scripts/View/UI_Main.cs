@@ -39,10 +39,14 @@ namespace RogueSharpTutorial.View
         private TileUnity[,] mapObjects;
 
         [Inject]
-        private CharaBinder.CharaSelect charaSelect;
+        public CharaBinder.CharaSelect charaSelect;
+
+        // int listCount;
+        // int randomChara;
+        // CharacterSO currentChara;
 
         [Inject]
-        private CharaBinder.PlayerChara playerChara;
+        public CharaBinder.PlayerChara playerChara;
 
         private void Start()
         {
@@ -54,6 +58,9 @@ namespace RogueSharpTutorial.View
             // container.Inject(game);
             game = this.container.Instantiate<Game>();
             Debug.Log(playerChara.currentSelect);
+            // listCount = charaSelect.characterSOs.Count;
+            // randomChara = UnityEngine.Random.Range(0, listCount);
+            // currentChara = charaSelect.characterSOs[randomChara];
         }
 
         private void Update()
@@ -159,31 +166,28 @@ namespace RogueSharpTutorial.View
                 tile.TextColor = ColorMap.UnityColors[foreColor];
 
                 tile.IsAsciiTile = false;
-                if (int.TryParse(symbol.ToString(), out int symbolNum))
+                switch (symbol)
                 {
-                    tile.SpriteImage = charaSelect.characterSOs[symbolNum].m_sprite;
-                    tile.SpriteImageOrder = 1;
-                }
-                else
-                {
-                    switch (symbol)
-                    {
-                        case '@':
-                            tile.SpriteImage = charaSelect.characterSOs[
-                                playerChara.currentSelect
-                            ].m_sprite;
+                    case '@':
+                        tile.SpriteImage = charaSelect.characterSOs[
+                            playerChara.currentSelect
+                        ].m_sprite;
+                        tile.SpriteImageOrder = 1;
+                        break;
+                    default:
+                        int number = (int)symbol - 65;
+                        if (number < charaSelect.characterSOs.Count && number > -1)
+                        {
+                            tile.SpriteImage = charaSelect.characterSOs[number].m_sprite;
                             tile.SpriteImageOrder = 1;
                             break;
-                        case 'x':
-                            tile.SpriteImage = charaSelect.characterSOs[1].m_sprite;
-                            tile.SpriteImageOrder = 1;
-                            break;
-                        default:
-                            tile.SpriteImage = sprites[0].m_sprite;
-                            tile.SpriteImageOrder = 0;
-                            break;
-                    }
+                        }
+
+                        tile.SpriteImage = sprites[0].m_sprite;
+                        tile.SpriteImageOrder = 0;
+                        break;
                 }
+                // }
             }
         }
 

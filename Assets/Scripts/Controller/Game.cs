@@ -30,7 +30,11 @@ namespace RogueSharpTutorial.Controller
         private List<BuffData> staticBuffs;
         private DiContainer container;
 
-        public Game(UI_Main console, DiContainer container, [Inject(Id = "static")] List<BuffData> staticBuffs)
+        public Game(
+            UI_Main console,
+            DiContainer container,
+            [Inject(Id = "static")] List<BuffData> staticBuffs
+        )
         {
             int seed = (int)DateTime.UtcNow.Ticks;
             Random = new DotNetRandom(seed);
@@ -39,7 +43,7 @@ namespace RogueSharpTutorial.Controller
             SchedulingSystem = new SchedulingSystem();
 
             rootConsole = console;
-            rootConsole.UpdateView += OnUpdate;                         // Set up a handler for graphic engine Update event
+            rootConsole.UpdateView += OnUpdate; // Set up a handler for graphic engine Update event
 
             MessageLog.Add("The rogue arrives on level " + mapLevel);
             MessageLog.Add("Level created with seed '" + seed + "'");
@@ -53,7 +57,14 @@ namespace RogueSharpTutorial.Controller
             Draw();
         }
 
-        public void SetMapCell(int x, int y, Colors foreColor, Colors backColor, char symbol, bool isExplored)
+        public void SetMapCell(
+            int x,
+            int y,
+            Colors foreColor,
+            Colors backColor,
+            char symbol,
+            bool isExplored
+        )
         {
             rootConsole.UpdateMapCell(x, y, foreColor, backColor, symbol, isExplored);
         }
@@ -91,7 +102,15 @@ namespace RogueSharpTutorial.Controller
 
         private void GenerateMap()
         {
-            MapGenerator mapGenerator = new MapGenerator(this, mapWidth, mapHeight, 20, 13, 7, mapLevel);
+            MapGenerator mapGenerator = new MapGenerator(
+                this,
+                mapWidth,
+                mapHeight,
+                20,
+                13,
+                7,
+                mapLevel
+            );
             this.container.Inject(mapGenerator);
 
             World = mapGenerator.CreateMap();
@@ -176,7 +195,15 @@ namespace RogueSharpTutorial.Controller
         private void MoveMapLevelDown()
         {
             rootConsole.ClearMap();
-            MapGenerator mapGenerator = new MapGenerator(this, mapWidth, mapHeight, 20, 13, 7, ++mapLevel);
+            MapGenerator mapGenerator = new MapGenerator(
+                this,
+                mapWidth,
+                mapHeight,
+                20,
+                13,
+                7,
+                ++mapLevel
+            );
             World = mapGenerator.CreateMap();
             rootConsole.GenerateMap(World);
             rootConsole.SetPlayer(Player);
