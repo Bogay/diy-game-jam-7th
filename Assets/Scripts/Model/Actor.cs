@@ -67,7 +67,7 @@ namespace RogueSharpTutorial.Model
         public int Health
         {
             get { return health; }
-            set { health = Math.Min(value, MaxHealth); }
+            set { health = Math.Clamp(value, 0, MaxHealth); }
         }
         private int maxHealth;
         public int MaxHealth
