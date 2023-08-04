@@ -183,27 +183,21 @@ namespace RogueSharpTutorial.View
             ].m_fetish.ToString();
         }
 
-        public void SetEnemyUI(int enemyIndex)
+        public void SetEnemyUI(CharacterSO enemy)
         {
-            enemy_nameField.text = charaSelect.characterSOs[enemyIndex].m_chineseName.ToString();
+            enemy_nameField.text = enemy.m_chineseName.ToString();
 
-            enemy_HPField.text = charaSelect.characterSOs[enemyIndex].m_Max_HP.ToString();
+            enemy_HPField.text = enemy.m_Max_HP.ToString();
 
-            enemy_ATKField.text = charaSelect.characterSOs[enemyIndex].m_Attack.ToString();
+            enemy_ATKField.text = enemy.m_Attack.ToString();
 
-            enemy_sexualCharacteristics_01_Field.text = charaSelect.characterSOs[
-                enemyIndex
-            ].m_sexualCharacteristics_01.ToString();
+            enemy_sexualCharacteristics_01_Field.text = enemy.m_sexualCharacteristics_01.ToString();
 
-            enemy_sexualCharacteristics_02_Field.text = charaSelect.characterSOs[
-                enemyIndex
-            ].m_sexualCharacteristics_02.ToString();
+            enemy_sexualCharacteristics_02_Field.text = enemy.m_sexualCharacteristics_02.ToString();
 
-            enemy_sexualCharacteristics_03_Field.text = charaSelect.characterSOs[
-                enemyIndex
-            ].m_sexualCharacteristics_03.ToString();
+            enemy_sexualCharacteristics_03_Field.text = enemy.m_sexualCharacteristics_03.ToString();
 
-            enemy_fetishField.text = charaSelect.characterSOs[enemyIndex].m_fetish.ToString();
+            enemy_fetishField.text = enemy.m_fetish.ToString();
         }
 
         /// <summary>

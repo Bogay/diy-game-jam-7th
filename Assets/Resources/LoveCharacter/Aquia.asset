@@ -34,3 +34,4 @@ MonoBehaviour:
   m_skillDirection: 1
   m_skillRange: 0
   m_remark: 
+  skillData: {fileID: 11400000, guid: bf3fbdafa9e193c44b550729d006f88b, type: 2}

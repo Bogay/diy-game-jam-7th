@@ -161,26 +161,7 @@ namespace RogueSharpTutorial.Controller
         /// <returns></returns>
         private AttackData ResolveAttack(Actor attacker, Actor defender, StringBuilder attackMessage)
         {
-            int hits = 0;
-
-            attackMessage.AppendFormat("{0} attacks {1} and rolls: ", attacker.Name, defender.Name);
-
-            // Roll a number of 100-sided dice equal to the Attack value of the attacking actor
-            DiceExpression attackDice = new DiceExpression().Dice(attacker.Attack, 100);
-            DiceResult attackResult = attackDice.Roll();
-
-            // Look at the face value of each single die that was rolled
-            foreach (TermResult termResult in attackResult.Results)
-            {
-                attackMessage.Append(termResult.Value + ", ");
-                // Compare the value to 100 minus the attack chance and add a hit if it's greater
-                if (termResult.Value >= 100 - attacker.AttackChance)
-                {
-                    hits++;
-                }
-            }
-
-            AttackData attackData = new AttackData(hits);
+            AttackData attackData = new AttackData(attacker.Attack);
             attacker.PrepareAttack(defender, attackData);
 
             return attackData;
@@ -270,6 +251,22 @@ namespace RogueSharpTutorial.Controller
             }
 
             return true;
+        }
+
+        public bool CastSkill(Actor actor)
+        {
+            if (actor.Skill == null)
+            {
+                return false;
+            }
+
+            if (!actor.Skill.CanCast())
+            {
+                return false;
+            }
+
+            CastResult result = actor.Skill.Cast();
+            return result == CastResult.Success;
         }
     }
 }

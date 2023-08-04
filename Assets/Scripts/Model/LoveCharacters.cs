@@ -10,8 +10,14 @@ namespace RogueSharpTutorial.Model
 {
     public class LoveCharacters : Monster
     {
-        public LoveCharacters(Game game)
-            : base(game) { }
+
+        public LoveCharacters(Game game, CharacterSO characterSO, DiContainer container)
+            : base(game, characterSO, container) { }
+
+
+
+        // public LoveCharacters(Game game, CharacterSO characterSO)
+        //     : base(game, characterSO) { }
 
         // {
         // [Inject]
@@ -77,25 +83,25 @@ namespace RogueSharpTutorial.Model
         //     // string m_remark;
         // }
         // }
-        public static LoveCharacters Create(int level, Game game)
-        {
-            int health = Dice.Roll("2D5");
+        // public static LoveCharacters Create(int level, Game game)
+        // {
+        //     int health = Dice.Roll("2D5");
 
-            return new LoveCharacters(game)
-            {
-                Attack = Dice.Roll("1D3") + level / 3,
-                AttackChance = Dice.Roll("25D3"),
-                Awareness = 10,
-                Color = Colors.KoboldColor,
-                Defense = Dice.Roll("1D3") + level / 3,
-                DefenseChance = Dice.Roll("10D4"),
-                Gold = Dice.Roll("5D5"),
-                Health = health,
-                MaxHealth = health,
-                Name = "Kobold",
-                Speed = 14,
-                Symbol = '0'
-            };
-        }
+        //     return new LoveCharacters(game)
+        //     {
+        //         Attack = Dice.Roll("1D3") + level / 3,
+        //         AttackChance = Dice.Roll("25D3"),
+        //         Awareness = 10,
+        //         Color = Colors.KoboldColor,
+        //         Defense = Dice.Roll("1D3") + level / 3,
+        //         DefenseChance = Dice.Roll("10D4"),
+        //         Gold = Dice.Roll("5D5"),
+        //         Health = health,
+        //         MaxHealth = health,
+        //         Name = "Kobold",
+        //         Speed = 14,
+        //         Symbol = '0'
+        //     };
+        // }
     }
 }
