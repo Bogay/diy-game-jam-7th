@@ -6057,6 +6057,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: SceneContext
       objectReference: {fileID: 0}
+    - target: {fileID: 4779499915186495951, guid: b802048cf58e00c4c9dab5f5070ef57e, type: 3}
+      propertyPath: staticBuffs.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4779499915186495951, guid: b802048cf58e00c4c9dab5f5070ef57e, type: 3}
+      propertyPath: staticBuffs.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: 9caba6782f455c94fae5acbe84db6983, type: 2}
     - target: {fileID: 7171910729173494981, guid: b802048cf58e00c4c9dab5f5070ef57e, type: 3}
       propertyPath: m_RootOrder
       value: 4
