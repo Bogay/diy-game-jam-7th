@@ -5,6 +5,7 @@ using RogueSharpTutorial.View;
 using RogueSharpTutorial.Controller;
 using RogueSharpTutorial.Model.Interfaces;
 using RogueSharp;
+using UniDi;
 
 namespace RogueSharpTutorial.Model
 {
@@ -20,12 +21,17 @@ namespace RogueSharpTutorial.Model
 
         private List<BuffData> buffs;
 
+        // configure stats for each character
+        public CharacterSO actorData { get; private set; }
+
+        // TODO: maybe some setters are not required
+
         // IActor
         private int attack;
         public int Attack
         {
-            get { return attack; }
-            set { attack = value; }
+            get => this.actorData.m_Attack;
+            set { }
         }
         private int attackChance;
         public int AttackChance
@@ -36,8 +42,8 @@ namespace RogueSharpTutorial.Model
         private CharacterSO.Gender gender;
         public CharacterSO.Gender Gender
         {
-            get { return gender; }
-            set { gender = value; }
+            get => this.actorData.m_gender;
+            set { /* TODO: maybe the setter is not required */ }
         }
         private int defense;
         public int Defense
@@ -66,7 +72,7 @@ namespace RogueSharpTutorial.Model
         private int maxHealth;
         public int MaxHealth
         {
-            get { return maxHealth; }
+            get { return this.actorData.m_Max_HP; }
             set { maxHealth = value; }
         }
         private int speed;
@@ -78,13 +84,13 @@ namespace RogueSharpTutorial.Model
         private string name;
         public string Name
         {
-            get { return name; }
+            get => this.actorData.m_name.ToString();
             set { name = value; }
         }
         private int awareness;
         public int Awareness
         {
-            get { return awareness; }
+            get { return 10; }
             set { awareness = value; }
         }
 
@@ -102,10 +108,21 @@ namespace RogueSharpTutorial.Model
 
         protected Game game;
 
-        public Actor(Game game)
+        public Skill Skill { get; private set; }
+
+        public Actor(Game game, [InjectOptional] CharacterSO characterSO, DiContainer container)
         {
             this.game = game;
             this.buffs = new List<BuffData>();
+            this.actorData = characterSO;
+            if (this.actorData?.skillData != null)
+            {
+                this.Skill = container.Instantiate<Skill>(new object[] {
+                    this.game,
+                    this.actorData.skillData,
+                    this // owner
+                });
+            }
         }
 
         public void Draw(IMap map)

@@ -271,5 +271,21 @@ namespace RogueSharpTutorial.Controller
 
             return true;
         }
+
+        public bool CastSkill(Actor actor)
+        {
+            if (actor.Skill == null)
+            {
+                return false;
+            }
+
+            if (!actor.Skill.CanCast())
+            {
+                return false;
+            }
+
+            CastResult result = actor.Skill.Cast();
+            return result == CastResult.Success;
+        }
     }
 }

@@ -10,6 +10,8 @@ namespace RogueSharpTutorial.Controller
 {
     public class Game
     {
+        public TurnEnded TurnEnded;
+
         public static IRandom Random { get; private set; }
 
         private UI_Main rootConsole;
@@ -50,7 +52,10 @@ namespace RogueSharpTutorial.Controller
 
             this.container = container;
             this.staticBuffs = staticBuffs;
+        }
 
+        public void Init()
+        {
             GenerateMap();
             rootConsole.SetPlayer(Player);
             World.UpdatePlayerFieldOfView(Player);
@@ -170,6 +175,7 @@ namespace RogueSharpTutorial.Controller
                         rootConsole.CloseApplication();
                         break;
                     case InputCommands.CastSkill:
+                        didPlayerAct = commandSystem.CastSkill(this.Player);
                         break;
                     case InputCommands.Rest:
                         didPlayerAct = commandSystem.Rest(this.Player);
@@ -182,13 +188,13 @@ namespace RogueSharpTutorial.Controller
                 {
                     renderRequired = true;
                     commandSystem.EndPlayerTurn();
+                    this.TurnEnded?.Invoke(this, new TurnEndedEventArgs());
                 }
             }
             else
             {
                 commandSystem.ActivateMonsters();
                 renderRequired = true;
-                // TODO: trigger turn ended
             }
         }
 

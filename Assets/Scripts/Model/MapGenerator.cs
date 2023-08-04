@@ -32,6 +32,9 @@ namespace RogueSharpTutorial.Model
         [Inject]
         public CharaBinder.PlayerChara playerChara;
 
+        [Inject]
+        private DiContainer container;
+
         /// <summary>
         /// Constructing a new MapGenerator requires the dimensions of the maps it will create as well as the sizes and maximum number of rooms.
         /// </summary>
@@ -141,21 +144,23 @@ namespace RogueSharpTutorial.Model
 
             if (player == null)
             {
-                player = new Player(game)
-                {
-                    Attack = currentChara.m_Attack,
-                    AttackChance = 50,
-                    Awareness = 10,
-                    Color = Colors.Player,
-                    Defense = 2,
-                    DefenseChance = 40,
-                    Gold = 0,
-                    Health = currentChara.m_Max_HP,
-                    MaxHealth = currentChara.m_Max_HP,
-                    Name = currentChara.m_chineseName.ToString(),
-                    Speed = 10,
-                    Symbol = '@',
-                };
+                // player = new Player(game, currentChara)
+                // {
+                //     Attack = currentChara.m_Attack,
+                //     AttackChance = 50,
+                //     Awareness = 10,
+                //     Color = Colors.Player,
+                //     Defense = 2,
+                //     DefenseChance = 40,
+                //     Gold = 0,
+                //     Health = currentChara.m_Max_HP,
+                //     MaxHealth = currentChara.m_Max_HP,
+                //     Name = currentChara.m_chineseName.ToString(),
+                //     Speed = 10,
+                //     Symbol = '@',
+                // };
+
+                player = this.container.Instantiate<Player>(new object[] { game, currentChara });
                 this.installStaticBuff(player);
             }
 
@@ -325,21 +330,23 @@ namespace RogueSharpTutorial.Model
                             randomChara = UnityEngine.Random.Range(0, listCount);
                             currentChara = charaSelect.characterSOs[randomChara];
 
-                            var monster = new LoveCharacters(game)
-                            {
-                                Attack = currentChara.m_Attack,
-                                AttackChance = Dice.Roll("25D3"),
-                                Awareness = 10,
-                                Color = Colors.KoboldColor,
-                                // Defense = Dice.Roll("1D3") + level / 3,
-                                DefenseChance = Dice.Roll("10D4"),
-                                Gold = Dice.Roll("5D5"),
-                                Health = currentChara.m_Max_HP,
-                                MaxHealth = currentChara.m_Max_HP,
-                                Name = currentChara.m_chineseName.ToString(),
-                                Speed = 14,
-                                Symbol = Convert.ToChar(randomChara + 65)
-                            };
+                            // var monster = new LoveCharacters(game, currentChara)
+                            var monster = this.container.Instantiate<Monster>(new object[] { currentChara, game });
+
+                            // {
+                            //     Attack = currentChara.m_Attack,
+                            //     AttackChance = Dice.Roll("25D3"),
+                            //     Awareness = 10,
+                            //     Color = Colors.KoboldColor,
+                            //     // Defense = Dice.Roll("1D3") + level / 3,
+                            //     DefenseChance = Dice.Roll("10D4"),
+                            //     Gold = Dice.Roll("5D5"),
+                            //     Health = currentChara.m_Max_HP,
+                            //     MaxHealth = currentChara.m_Max_HP,
+                            //     Name = currentChara.m_chineseName.ToString(),
+                            //     Speed = 14,
+                            //     Symbol = Convert.ToChar(randomChara + 65)
+                            // };
 
                             this.installStaticBuff(monster);
                             monster.X = randomRoomLocation.X;
@@ -353,9 +360,9 @@ namespace RogueSharpTutorial.Model
 
         private void installStaticBuff(Actor actor)
         {
-            for (int i = 0; i < this.staticBuffs.Count; i++)
+            foreach (var buff in this.staticBuffs)
             {
-                actor.AddBuff(ScriptableObject.Instantiate(this.staticBuffs[i]));
+                actor.AddBuff(ScriptableObject.Instantiate(buff));
             }
         }
     }

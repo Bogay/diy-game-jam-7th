@@ -61,6 +61,8 @@ namespace RogueSharpTutorial.View
             // listCount = charaSelect.characterSOs.Count;
             // randomChara = UnityEngine.Random.Range(0, listCount);
             // currentChara = charaSelect.characterSOs[randomChara];
+
+            game.Init();
         }
 
         private void Update()
@@ -160,37 +162,38 @@ namespace RogueSharpTutorial.View
                     mapObjects[x, y] = tile;
                 }
 
-                tile.TileActive = isExplored;
                 tile.BackgroundColor = ColorMap.UnityColors[backColor];
                 tile.Text = symbol;
                 tile.TextColor = ColorMap.UnityColors[foreColor];
-                // uiStats.enemyUI.SetActive(false);
 
-                tile.IsAsciiTile = false;
+                tile.IsAsciiTile = true;
+                tile.SpriteImageOrder = 0;
+                tile.actor = null;
+
                 switch (symbol)
                 {
                     case '@':
-                        tile.SpriteImage = charaSelect.characterSOs[
-                            playerChara.currentSelect
-                        ].m_sprite;
+                        tile.SpriteImage = this.game.Player.actorData.m_sprite;
                         tile.SpriteImageOrder = 1;
+                        tile.actor = this.game.Player;
+                        tile.IsAsciiTile = false;
                         break;
                     default:
-                        int number = (int)symbol - 65;
-                        if (number < charaSelect.characterSOs.Count && number > -1)
+
+                        Monster monster = this.game.World.GetMonsterAt(x, y);
+                        if (monster != null)
                         {
-                            tile.SpriteImage = charaSelect.characterSOs[number].m_sprite;
+                            tile.SpriteImage = monster.actorData.m_sprite;
                             tile.SpriteImageOrder = 1;
-                            tile.monsterIndex = number;
+                            tile.actor = monster;
+                            tile.IsAsciiTile = false;
                             break;
                         }
 
-                        tile.SpriteImage = sprites[0].m_sprite;
-                        tile.SpriteImageOrder = 0;
-                        tile.monsterIndex = -1;
                         break;
                 }
-                // }
+
+                tile.TileActive = isExplored;
             }
         }
 

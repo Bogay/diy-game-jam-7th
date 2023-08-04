@@ -70,6 +70,10 @@ namespace RogueSharpTutorial.View
             {
                 return InputCommands.Rest;
             }
+            else if (Input.GetKeyUp(KeyCode.LeftControl))
+            {
+                return InputCommands.CastSkill;
+            }
 
             return InputCommands.None;
         }

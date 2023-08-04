@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using RogueSharpTutorial.Utilities;
+using RogueSharpTutorial.Model;
 using UniDi;
 
 namespace RogueSharpTutorial.View
@@ -19,16 +20,12 @@ namespace RogueSharpTutorial.View
         [SerializeField]
         UI_Stats uiState;
 
-        public int monsterIndex = -1;
+        public Actor actor;
 
         public bool IsAsciiTile { get; set; }
 
         [Inject]
         public CharaBinder.CharaSelect charaSelect;
-
-        // int listCount;
-        // int randomChara;
-        // CharacterSO currentChara;
 
         [Inject]
         public CharaBinder.PlayerChara playerChara;
@@ -61,19 +58,19 @@ namespace RogueSharpTutorial.View
             uiState = GameObject.Find("_MainUI").GetComponent<UI_Stats>();
         }
 
-        public int OnMouseEnter()
+        public void OnMouseEnter()
         {
-            if (monsterIndex != -1)
+            if (this.actor is Monster)
             {
                 uiState.enemyUI.SetActive(true);
-                uiState.SetEnemyUI(monsterIndex);
+                uiState.SetEnemyUI(this.actor.actorData);
             }
             else
             {
                 uiState.enemyUI.SetActive(false);
             }
             // Debug.Log("Mouse is Enter GameObject." + monsterIndex);
-            return monsterIndex;
+            // return monsterIndex;
         }
 
         /// <summary>

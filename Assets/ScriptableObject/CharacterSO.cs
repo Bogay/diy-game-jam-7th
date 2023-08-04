@@ -267,4 +267,5 @@ public class CharacterSO : ScriptableObject
     public SkillDirection m_skillDirection;
     public int m_skillRange = 0;
     public string m_remark;
+    public SkillData skillData;
 }
