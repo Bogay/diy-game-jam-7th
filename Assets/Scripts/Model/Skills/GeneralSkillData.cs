@@ -15,6 +15,8 @@ public class GeneralSkillData : SkillData
     private List<BuffData> targetBuffs;
     [SerializeField]
     private List<BuffData> ownerBuffs;
+    [SerializeField]
+    private ISkillInputController inputController;
 
     public override CastResult Cast(Game game, Actor actor)
     {

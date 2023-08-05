@@ -110,6 +110,14 @@ namespace RogueSharpTutorial.Model
 
         public Skill Skill { get; private set; }
 
+        private int forwardX;
+        private int forwardY;
+        public (int, int) Forward
+        {
+            get => (this.forwardX, this.forwardY);
+            set => (this.forwardX, this.forwardY) = value;
+        }
+
         public Actor(Game game, [InjectOptional] CharacterSO characterSO, DiContainer container)
         {
             this.game = game;

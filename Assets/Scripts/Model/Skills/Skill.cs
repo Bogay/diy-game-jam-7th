@@ -1,4 +1,5 @@
 using System;
+using UniDi;
 using RogueSharpTutorial.Model;
 using RogueSharpTutorial.Controller;
 
@@ -7,19 +8,23 @@ public class Skill
     private Game game;
     private Actor owner;
     private SkillData skillData;
+    private DiContainer container;
 
     public int CurrentCoolDown { get; private set; }
     public int CoolDown => this.skillData.CoolDown;
     public string SkillName => this.skillData.SkillName;
     public string Description => this.skillData.Description;
+    public Actor Owner => this.owner;
+    public SkillData SkillData => this.skillData;
 
-    public Skill(Actor owner, SkillData skillData, Game game)
+    public Skill(Actor owner, SkillData skillData, Game game, DiContainer container)
     {
         this.owner = owner;
         this.skillData = skillData;
         this.CurrentCoolDown = 0;
         this.game = game;
         this.game.TurnEnded += this.onTurnEnded;
+        this.container = container;
     }
 
     public virtual bool CanCast()
@@ -42,4 +47,6 @@ public class Skill
     {
         this.CurrentCoolDown = Math.Max(0, this.CurrentCoolDown - 1);
     }
+
+    public ISkillInputController GetInputController() => this.skillData.GetInputController();
 }

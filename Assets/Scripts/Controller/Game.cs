@@ -26,6 +26,7 @@ namespace RogueSharpTutorial.Controller
         public DungeonMap World { get; private set; }
         public Player Player { get; set; }
         public SchedulingSystem SchedulingSystem { get; private set; }
+        public bool IsPlayerTurn => this.commandSystem.IsPlayerTurn;
 
         public int mapLevel = 1;
 
@@ -38,11 +39,15 @@ namespace RogueSharpTutorial.Controller
             [Inject(Id = "static")] List<BuffData> staticBuffs
         )
         {
+            container.BindInstance(this);
+
             int seed = (int)DateTime.UtcNow.Ticks;
             Random = new DotNetRandom(seed);
             commandSystem = new CommandSystem(this);
             MessageLog = new MessageLog(this);
             SchedulingSystem = new SchedulingSystem();
+
+            container.BindInstance(commandSystem);
 
             rootConsole = console;
             rootConsole.UpdateView += OnUpdate; // Set up a handler for graphic engine Update event
@@ -134,10 +139,9 @@ namespace RogueSharpTutorial.Controller
         {
             bool didPlayerAct = false;
 
-            InputCommands command = rootConsole.GetUserCommand();
-
             if (commandSystem.IsPlayerTurn)
             {
+                InputCommands command = rootConsole.GetUserCommand();
                 switch (command)
                 {
                     case InputCommands.UpLeft:
@@ -218,5 +222,6 @@ namespace RogueSharpTutorial.Controller
             MessageLog = new MessageLog(this);
             commandSystem = new CommandSystem(this);
         }
+
     }
 }

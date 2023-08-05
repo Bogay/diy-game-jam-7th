@@ -139,6 +139,12 @@ namespace RogueSharpTutorial.View
         [SerializeField]
         private GameObject statBarPrefab;
 
+        [SerializeField]
+        private Button castSkillButton;
+
+        [SerializeField]
+        private Button restButton;
+
         public GameObject HPPrefab;
         public GameObject CHPPrefab;
         public GameObject ATKPrefab;
@@ -304,6 +310,12 @@ namespace RogueSharpTutorial.View
             {
                 GameObject.Destroy(parent.transform.GetChild(i).gameObject);
             }
+        }
+
+        public void BindInputKeyboard(InputKeyboard inputKeyboard)
+        {
+            this.castSkillButton.onClick.AddListener(inputKeyboard.PrepareSkill);
+            this.restButton.onClick.AddListener(inputKeyboard.Rest);
         }
     }
 }

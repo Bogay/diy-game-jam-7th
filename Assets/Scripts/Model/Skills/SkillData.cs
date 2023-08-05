@@ -23,4 +23,10 @@ public class SkillData : ScriptableObject
         // TODO: show dialogue
         return CastResult.Success;
     }
+
+    // Default implementation does not require any extra input
+    public virtual ISkillInputController GetInputController()
+    {
+        return new SkillNoInputController();
+    }
 }
