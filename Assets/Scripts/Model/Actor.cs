@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using RogueSharpTutorial.View;
 using RogueSharpTutorial.Controller;
 using RogueSharpTutorial.Model.Interfaces;
 using RogueSharp;
 using UniDi;
+using UnityEngine;
 
 namespace RogueSharpTutorial.Model
 {
@@ -129,7 +129,7 @@ namespace RogueSharpTutorial.Model
             if (this.actorData.skillData != null)
             {
                 this.Skill = container.Instantiate<Skill>(new object[] {
-                    this.actorData.skillData,
+                    ScriptableObject.Instantiate(this.actorData.skillData),
                     this // owner
                 });
             }

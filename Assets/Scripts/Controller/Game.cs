@@ -67,6 +67,11 @@ namespace RogueSharpTutorial.Controller
             Draw();
         }
 
+        public void SetMapCellOverlay(int x, int y, Colors overlayColor)
+        {
+            this.rootConsole.UpdateMapCellOverlay(x, y, overlayColor);
+        }
+
         public void SetMapCell(
             int x,
             int y,
@@ -128,7 +133,7 @@ namespace RogueSharpTutorial.Controller
             rootConsole.GenerateMap(World);
         }
 
-        private void Draw()
+        public void Draw()
         {
             World.Draw();
             Player.Draw(World);

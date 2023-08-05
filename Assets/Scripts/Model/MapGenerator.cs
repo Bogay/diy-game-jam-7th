@@ -140,10 +140,10 @@ namespace RogueSharpTutorial.Model
         private void PlacePlayer(Game game)
         {
             Player player = game.Player;
-            currentChara = charaSelect.characterSOs[playerChara.currentSelect];
 
             if (player == null)
             {
+                currentChara = charaSelect.characterSOs[playerChara.currentSelect];
                 // player = new Player(game, currentChara)
                 // {
                 //     Attack = currentChara.m_Attack,
@@ -160,12 +160,13 @@ namespace RogueSharpTutorial.Model
                 //     Symbol = '@',
                 // };
 
-                player = this.container.Instantiate<Player>(new object[] { currentChara });
+                player = this.container.Instantiate<Player>(new object[] { ScriptableObject.Instantiate(currentChara) });
                 this.installStaticBuff(player);
             }
 
             player.X = map.Rooms[0].Center.X;
             player.Y = map.Rooms[0].Center.Y;
+            this.game.MessageLog.Add($"Player {player.Name} spawned @ ({player.X}, {player.Y})");
 
             map.AddPlayer(player);
         }
@@ -331,7 +332,7 @@ namespace RogueSharpTutorial.Model
                             currentChara = charaSelect.characterSOs[randomChara];
 
                             // var monster = new LoveCharacters(game, currentChara)
-                            var monster = this.container.Instantiate<Monster>(new object[] { currentChara });
+                            var monster = this.container.Instantiate<Monster>(new object[] { ScriptableObject.Instantiate(currentChara) });
 
                             // {
                             //     Attack = currentChara.m_Attack,
@@ -351,6 +352,7 @@ namespace RogueSharpTutorial.Model
                             this.installStaticBuff(monster);
                             monster.X = randomRoomLocation.X;
                             monster.Y = randomRoomLocation.Y;
+                            this.game.MessageLog.Add($"Enemy {monster.Name} spawned @ ({monster.X}, {monster.Y})");
                             map.AddMonster(monster);
                         }
                     }

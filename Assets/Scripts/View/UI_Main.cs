@@ -117,13 +117,29 @@ namespace RogueSharpTutorial.View
             }
         }
 
+        public void UpdateMapCellOverlay(int x, int y, Colors overlayColor)
+        {
+            TileUnity tile = this.mapObjects[x, y];
+            if (tile == null)
+            {
+                Debug.LogWarning($"Update overlay for null tile: ({x}, {y})");
+                return;
+            }
+
+            var c = ColorMap.UnityColors[overlayColor];
+            // HACK: make it semi-transparent
+            c.a = 0.5f;
+            tile.OverlayColor = c;
+        }
+
         public void UpdateMapCell(
             int x,
             int y,
             Colors foreColor,
             Colors backColor,
             char symbol,
-            bool isExplored
+            bool isExplored,
+            Colors overlayColor = Colors.Clear
         )
         {
             TileUnity tile;
@@ -156,6 +172,7 @@ namespace RogueSharpTutorial.View
                     mapObjects[x, y] = tile;
                 }
 
+                tile.OverlayColor = ColorMap.UnityColors[overlayColor];
                 tile.BackgroundColor = ColorMap.UnityColors[backColor];
                 tile.Text = symbol;
                 tile.TextColor = ColorMap.UnityColors[foreColor];

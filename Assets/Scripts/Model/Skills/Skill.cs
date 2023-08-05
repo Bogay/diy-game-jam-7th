@@ -41,13 +41,13 @@ public class Skill
         CastResult result = this.skillData.Cast(this.game, this.owner);
         if (result == CastResult.Success)
         {
-            this.game.MessageLog.Add($"Cast skill successfully: {this.SkillName}");
+            this.game.MessageLog.Add($"Cast skill successfully: {this.SkillName} by {this.owner.Name}");
             // HACK: +1 because the cool down decreases immediately
             this.CurrentCoolDown = this.CoolDown + 1;
         }
         else
         {
-            this.game.MessageLog.Add($"Case skill failed: {this.SkillName}, {result}");
+            this.game.MessageLog.Add($"Case skill failed: {this.SkillName} by {this.owner.Name}, {result}");
         }
         return result;
     }

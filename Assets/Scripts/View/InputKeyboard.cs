@@ -143,7 +143,8 @@ namespace RogueSharpTutorial.View
                 return false;
             if (this.game?.IsPlayerTurn != true)
                 return false;
-            return Input.GetKeyUp(KeyCode.LeftControl) || this.skillFlag;
+            bool isUserInputDetected = Input.GetKeyUp(KeyCode.LeftControl) || this.skillFlag;
+            return this.game.Player.Skill.CanCast() && isUserInputDetected;
         }
     }
 }

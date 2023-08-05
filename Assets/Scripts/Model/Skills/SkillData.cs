@@ -12,6 +12,10 @@ public enum CastResult
 
 public class SkillData : ScriptableObject
 {
+    [SerializeField]
+    private SkillRange range;
+    public SkillRange Range => this.range;
+
     public int CoolDown;
     public string SkillName;
     public string Description;
