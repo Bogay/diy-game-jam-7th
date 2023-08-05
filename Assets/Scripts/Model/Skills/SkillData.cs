@@ -18,9 +18,6 @@ public class SkillData : ScriptableObject
 
     public virtual CastResult Cast(Game game, Actor actor)
     {
-        // TODO: query target
-        // TODO: spawn buff
-        // TODO: show dialogue
         return CastResult.Success;
     }
 

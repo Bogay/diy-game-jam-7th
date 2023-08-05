@@ -160,7 +160,7 @@ namespace RogueSharpTutorial.Model
                 //     Symbol = '@',
                 // };
 
-                player = this.container.Instantiate<Player>(new object[] { game, currentChara });
+                player = this.container.Instantiate<Player>(new object[] { currentChara });
                 this.installStaticBuff(player);
             }
 
@@ -331,7 +331,7 @@ namespace RogueSharpTutorial.Model
                             currentChara = charaSelect.characterSOs[randomChara];
 
                             // var monster = new LoveCharacters(game, currentChara)
-                            var monster = this.container.Instantiate<Monster>(new object[] { currentChara, game });
+                            var monster = this.container.Instantiate<Monster>(new object[] { currentChara });
 
                             // {
                             //     Attack = currentChara.m_Attack,

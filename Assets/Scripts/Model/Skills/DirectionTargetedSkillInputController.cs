@@ -9,8 +9,6 @@ using RogueSharpTutorial.Controller;
 public class DirectionTargetedSkillInputController : ScriptableObject, ISkillInputController
 {
     [Inject]
-    private Game game;
-    [Inject]
     private Skill skill;
     [Inject]
     private InputKeyboard inputKeyboard;
@@ -39,10 +37,12 @@ public class DirectionTargetedSkillInputController : ScriptableObject, ISkillInp
         }
         else if (Input.GetKeyUp(KeyCode.Escape))
         {
+            Debug.Log($"Cancel skill casting: {this.skill.SkillName}");
             return (InputState.Normal, InputCommands.None);
         }
         else if (Input.GetKeyUp(KeyCode.Space))
         {
+            Debug.Log($"Cast skill: {this.skill.SkillName}");
             return (InputState.Normal, InputCommands.CastSkill);
         }
         return (InputState.PrepareSkill, InputCommands.None);

@@ -108,6 +108,9 @@ namespace RogueSharpTutorial.Model
 
         protected Game game;
 
+        // TODO: add getter here might not be a good idea?
+        public Game Game => this.game;
+
         public Skill Skill { get; private set; }
 
         private int forwardX;
@@ -118,19 +121,19 @@ namespace RogueSharpTutorial.Model
             set => (this.forwardX, this.forwardY) = value;
         }
 
-        public Actor(Game game, [InjectOptional] CharacterSO characterSO, DiContainer container)
+        public Actor(Game game, CharacterSO characterSO, DiContainer container)
         {
             this.game = game;
             this.buffs = new List<BuffData>();
             this.actorData = characterSO;
-            if (this.actorData?.skillData != null)
+            if (this.actorData.skillData != null)
             {
                 this.Skill = container.Instantiate<Skill>(new object[] {
-                    this.game,
                     this.actorData.skillData,
                     this // owner
                 });
             }
+            this.health = this.MaxHealth;
         }
 
         public void Draw(IMap map)

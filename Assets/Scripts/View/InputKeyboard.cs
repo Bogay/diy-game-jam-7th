@@ -123,6 +123,7 @@ namespace RogueSharpTutorial.View
             }
             else if (this.getPrepareSkillInput())
             {
+                Debug.Log($"Prepare skill: {this.game.Player.Skill.SkillName}");
                 this.skillFlag = false;
                 this.skillInputController = this.game.Player.Skill.GetInputController();
                 return (InputState.PrepareSkill, InputCommands.None);

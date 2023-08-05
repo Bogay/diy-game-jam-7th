@@ -110,6 +110,7 @@ namespace RogueSharpTutorial.Controller
             }
         }
 
+        // FIXME: do not call constructor of MonoBehaviour
         private void GenerateMap()
         {
             MapGenerator mapGenerator = new MapGenerator(

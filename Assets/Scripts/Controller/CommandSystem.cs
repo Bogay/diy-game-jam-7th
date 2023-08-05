@@ -163,6 +163,7 @@ namespace RogueSharpTutorial.Controller
         {
             AttackData attackData = new AttackData(attacker.Attack);
             attacker.PrepareAttack(defender, attackData);
+            attackMessage.Append($"{attacker.Name} cause {attackData.Value} damage.");
 
             return attackData;
         }

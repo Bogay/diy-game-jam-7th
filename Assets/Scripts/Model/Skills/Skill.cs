@@ -8,7 +8,6 @@ public class Skill
     private Game game;
     private Actor owner;
     private SkillData skillData;
-    private DiContainer container;
 
     public int CurrentCoolDown { get; private set; }
     public int CoolDown => this.skillData.CoolDown;
@@ -24,7 +23,12 @@ public class Skill
         this.CurrentCoolDown = 0;
         this.game = game;
         this.game.TurnEnded += this.onTurnEnded;
-        this.container = container;
+
+        var subContainer = container.CreateSubContainer();
+        subContainer.BindFactory<BuffData, BuffData, BuffData.Factory>().FromFactory<BuffDataFactory>();
+        subContainer.BindInstance(this.owner).WithId("source").AsSingle();
+        subContainer.BindInstance(this).AsSingle();
+        subContainer.Inject(this.skillData);
     }
 
     public virtual bool CanCast()
@@ -37,8 +41,13 @@ public class Skill
         CastResult result = this.skillData.Cast(this.game, this.owner);
         if (result == CastResult.Success)
         {
+            this.game.MessageLog.Add($"Cast skill successfully: {this.SkillName}");
             // HACK: +1 because the cool down decreases immediately
             this.CurrentCoolDown = this.CoolDown + 1;
+        }
+        else
+        {
+            this.game.MessageLog.Add($"Case skill failed: {this.SkillName}, {result}");
         }
         return result;
     }
