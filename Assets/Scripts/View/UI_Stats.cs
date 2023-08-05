@@ -4,6 +4,8 @@ using RogueSharpTutorial.Model;
 using RogueSharpTutorial.Controller;
 using UniDi;
 using TMPro;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace RogueSharpTutorial.View
 {
@@ -63,6 +65,12 @@ namespace RogueSharpTutorial.View
         [SerializeField]
         private TMP_Text fetishField;
 
+        [SerializeField]
+        private GameObject dialogueUI;
+
+        [SerializeField]
+        private TMP_Text skillField;
+
         // [SerializeField]
         // private TMP_Text skillField;
 
@@ -118,6 +126,12 @@ namespace RogueSharpTutorial.View
 
         [SerializeField]
         private TMP_Text enemy_fetishField;
+
+        [SerializeField]
+        private GameObject enemy_dialogueUI;
+
+        [SerializeField]
+        private TMP_Text enemy_skillField;
 
         [SerializeField]
         private VerticalLayoutGroup enemyGroup;
@@ -181,6 +195,15 @@ namespace RogueSharpTutorial.View
             fetishField.text = charaSelect.characterSOs[
                 playerChara.currentSelect
             ].m_fetish.ToString();
+
+            skillField.text = charaSelect.characterSOs[
+                playerChara.currentSelect
+            ].m_skill.ToString();
+        }
+
+        public void ShowPlayerDialogue()
+        {
+            StartCoroutine(ShowAndWait(dialogueUI, 2.5f));
         }
 
         public void SetEnemyUI(CharacterSO enemy)
@@ -198,6 +221,20 @@ namespace RogueSharpTutorial.View
             enemy_sexualCharacteristics_03_Field.text = enemy.m_sexualCharacteristics_03.ToString();
 
             enemy_fetishField.text = enemy.m_fetish.ToString();
+
+            enemy_skillField.text = enemy.m_skill.ToString();
+        }
+
+        public void ShowEnemyDialogue()
+        {
+            StartCoroutine(ShowAndWait(enemy_dialogueUI, 2.5f));
+        }
+
+        IEnumerator ShowAndWait(GameObject dialogue, float waitTime)
+        {
+            dialogue.SetActive(true);
+            yield return new WaitForSeconds(waitTime);
+            dialogue.SetActive(false);
         }
 
         /// <summary>
