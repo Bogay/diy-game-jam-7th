@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf8b2c65407466a47853c9661ba3c638, type: 3}
+  m_Name: NTR
+  m_EditorClassIdentifier: 
+  viewData:
+    Sprite: {fileID: 0}
+    Description: "\u5C0D\u4EBA\u59BB\u5C0D\u8C61\u589E\u52A0\u5169\u9EDE\u9B45\u529B"
+    show: 0
+  ttl: 0
+  devNote: 
+  buffs:
+  - {fileID: 11400000, guid: 55f222486eb84f043abff0b2690cec0e, type: 2}

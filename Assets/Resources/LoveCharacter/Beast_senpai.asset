@@ -17,14 +17,13 @@ MonoBehaviour:
   m_sprite: {fileID: 21300000, guid: f6b344c137a027146b16192107551754, type: 3}
   m_gender: 0
   m_sexualOrientation: 0
-  m_sexualCharacteristics_01: 4
-  m_sexualCharacteristics_02: 2
-  m_sexualCharacteristics_03: 0
   m_fetish: 1
   m_Max_HP: 10
   m_Attack: 3
   m_skill: 5
   skillData: {fileID: 0}
   m_detailedDescriptionText: 5
-  sexualCharacteristicsSOList: []
+  sexualCharacteristicsSOList:
+  - {fileID: 11400000, guid: 76e6cfbb1f709434e8705336993a1a3d, type: 2}
+  - {fileID: 11400000, guid: 5a0caffd5c83a2f4398fd8c6e5b50f01, type: 2}
   sexualCharacteristicsList: 0400000002000000

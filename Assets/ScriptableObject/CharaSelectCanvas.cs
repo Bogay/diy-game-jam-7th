@@ -80,10 +80,19 @@ public class CharaSelectCanvas : MonoBehaviour
         }
         fetish.GetComponent<TMP_Text>().text = selected.m_fetish.ToString();
         loveCharaSprite.sprite = selected.m_sprite;
-        string skillText = selected.m_skill.ToString();
-        string detailText = selected.m_detailedDescriptionText.ToString();
-        skillName.text = "技能: " + skillText.Replace("_", "，");
-        detailedDescription.text = detailText.Replace("_", "，");
+
+        if (selected.skillData == null)
+        {
+            skillName.text = "技能：\n（尚未實裝）";
+            detailedDescription.text = "";
+        }
+        else
+        {
+            string skillText = selected.skillData.SkillName;
+            string detailText = selected.skillData.Description;
+            skillName.text = $"技能：\n「{skillText}」";
+            detailedDescription.text = detailText;
+        }
 
         SetHPUI();
         SetATKUI();
