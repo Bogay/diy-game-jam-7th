@@ -245,6 +245,34 @@ public class CharacterSO : ScriptableObject
         雷影,
     }
 
+    public enum DetailedDescriptionText
+    {
+        往指定敵方前進_造成魅力加一情傷,
+        對指定敵方_造成魅力加一情傷,
+        免疫敵方對己使用的一次技能,
+        啟動後兩回合_被情傷加一_造成魅力加二情傷,
+        兩回合內指定敵方性轉成男,
+        回復所受情傷一半墨鏡,
+        使四周敵方麻痺,
+        解除一次麻痺,
+        根據對方性癖變化自身性徵,
+        回復三點墨鏡,
+        自身的血量屬性變成對手的血量屬性,
+        每三回合自動加一經驗,
+        每有一人在身旁加一墨鏡,
+        啟動後兩回合_墨鏡加二,
+        自己受一情傷_對指定敵方造成麻痺和一點傷害,
+        對指定敵方_造成魅力加三情傷,
+        冷卻時間三回合_反彈一次傷害,
+        對指定敵方造成麻痺和基本魅力情傷,
+        冷卻時間三回合_免疫一次麻痺,
+        對指定敵方_造成魅力加二情傷,
+        兩回合內指定敵方性別變為偽娘,
+        對指定敵方_造成麻痺和基本魅力情傷,
+        依身旁NTR屬性人數_回復兩倍人數之墨鏡,
+        對面假如為人妻_造成對方麻痺和魅力加一情傷,
+    }
+
     public LoveCharaName m_name;
     public LoveCharaChineseName m_chineseName;
     public Sprite m_sprite;
@@ -268,4 +296,5 @@ public class CharacterSO : ScriptableObject
     public int m_skillRange = 0;
     public string m_remark;
     public SkillData skillData;
+    public DetailedDescriptionText m_detailedDescriptionText;
 }

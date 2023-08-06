@@ -23,7 +23,7 @@ MonoBehaviour:
   m_fetish: 15
   m_Max_HP: 10
   m_Attack: 3
-  m_skill: 0
+  m_skill: 29
   m_skillType: 1
   m_skillDuration: 0
   m_skillCooldown: 3
@@ -34,3 +34,5 @@ MonoBehaviour:
   m_skillDirection: 3
   m_skillRange: 1
   m_remark: "\u5C0D\u9762\u5047\u5982\u70BA\u4EBA\u59BB"
+  skillData: {fileID: 0}
+  m_detailedDescriptionText: 23

@@ -27,6 +27,9 @@ public class CharaSelectCanvas : MonoBehaviour
     public GameObject fetish;
     public GameObject Max_HP;
     public GameObject Attack;
+    public GameObject detailedDescription_Panel;
+    public TMP_Text skillName;
+    public TMP_Text detailedDescription;
 
     // public GameObject  skill;
     // public GameObject  skillType;
@@ -73,11 +76,18 @@ public class CharaSelectCanvas : MonoBehaviour
         ].m_fetish.ToString();
         loveCharaSprite.sprite = charaSelect.characterSOs[_currentSelect].m_sprite;
 
+        string skillText = charaSelect.characterSOs[_currentSelect].m_skill.ToString();
+        string detailText = charaSelect.characterSOs[
+            _currentSelect
+        ].m_detailedDescriptionText.ToString();
+        skillName.text = "技能: " + skillText.Replace("_", "，");
+        detailedDescription.text = detailText.Replace("_", "，");
+
         SetHPUI();
         SetATKUI();
         playerChara.currentSelect = _currentSelect;
-        Debug.Log(_currentSelect);
-        Debug.Log(playerChara.currentSelect);
+        // Debug.Log(_currentSelect);
+        // Debug.Log(playerChara.currentSelect);
     }
 
     void SetHPUI()

@@ -34,3 +34,5 @@ MonoBehaviour:
   m_skillDirection: 1
   m_skillRange: 0
   m_remark: "\u4F9D\u8EAB\u65C1NTR\u5C6C\u6027\u4EBA\u6578"
+  skillData: {fileID: 0}
+  m_detailedDescriptionText: 22

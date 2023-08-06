@@ -201,10 +201,6 @@ namespace RogueSharpTutorial.View
             fetishField.text = charaSelect.characterSOs[
                 playerChara.currentSelect
             ].m_fetish.ToString();
-
-            skillField.text = charaSelect.characterSOs[
-                playerChara.currentSelect
-            ].m_skill.ToString();
         }
 
         public void ShowPlayerDialogue()
