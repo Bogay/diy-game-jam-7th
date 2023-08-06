@@ -13,8 +13,9 @@ namespace RogueSharpTutorial.Model
     {
         public event UpdateAttack OnAttack;
         public event UpdateAttack OnDefense;
-        // FIXME: add type for this event
+        // FIXME: add type for these events
         public event UpdateAttack OnMove;
+        public event UpdateAttack OnDead;
 
         // TODO: naming
         // it is ued to update attacker / defender properties, we may need to use another type
@@ -32,8 +33,8 @@ namespace RogueSharpTutorial.Model
         private int attack;
         public int Attack
         {
-            get => this.actorData.m_Attack;
-            set { }
+            get => this.attack;
+            set { this.attack = value; }
         }
         private int attackChance;
         public int AttackChance
@@ -44,8 +45,8 @@ namespace RogueSharpTutorial.Model
         private CharacterSO.Gender gender;
         public CharacterSO.Gender Gender
         {
-            get => this.actorData.m_gender;
-            set { /* TODO: maybe the setter is not required */ }
+            get => this.gender;
+            set { this.gender = value; }
         }
         private int defense;
         public int Defense
@@ -74,7 +75,7 @@ namespace RogueSharpTutorial.Model
         private int maxHealth;
         public int MaxHealth
         {
-            get { return this.actorData.m_Max_HP; }
+            get { return this.maxHealth; }
             set { maxHealth = value; }
         }
         private int speed;
@@ -127,6 +128,12 @@ namespace RogueSharpTutorial.Model
         {
             this.game = game;
             this.buffs = new List<BuffData>();
+            this.bindCharacterSO(characterSO, container);
+            this.Health = this.MaxHealth;
+        }
+
+        private void bindCharacterSO(CharacterSO characterSO, DiContainer container)
+        {
             this.actorData = characterSO;
             if (this.actorData.skillData != null)
             {
@@ -135,7 +142,9 @@ namespace RogueSharpTutorial.Model
                     this // owner
                 });
             }
-            this.health = this.MaxHealth;
+            this.MaxHealth = this.actorData.m_Max_HP;
+            this.Gender = this.actorData.m_gender;
+            this.Attack = this.actorData.m_Attack;
         }
 
         public void Draw(IMap map)
@@ -240,6 +249,16 @@ namespace RogueSharpTutorial.Model
             AttackData attackData = new AttackData(0);
             this.OnMove?.Invoke(this, new UpdateAttackArgs { attacker = this, defender = null, attackData = attackData });
             return attackData;
+        }
+
+        public void ResolveDeath(Actor attacker, AttackData attackData)
+        {
+            this.OnDead?.Invoke(this, new UpdateAttackArgs
+            {
+                attacker = attacker,
+                defender = this,
+                attackData = attackData,
+            });
         }
     }
 }

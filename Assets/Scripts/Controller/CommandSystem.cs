@@ -163,7 +163,7 @@ namespace RogueSharpTutorial.Controller
                 game.MessageLog.Add(defenseMessage.ToString());
             }
 
-            ResolveDamage(defender, attackData);
+            ResolveDamage(defender, attacker, attackData);
         }
 
         /// <summary>
@@ -217,7 +217,7 @@ namespace RogueSharpTutorial.Controller
         }
 
         // Apply any damage that wasn't blocked to the defender
-        private void ResolveDamage(Actor defender, AttackData attackData)
+        private void ResolveDamage(Actor defender, Actor attacker, AttackData attackData)
         {
             if (attackData.Value > 0)
             {
@@ -229,7 +229,7 @@ namespace RogueSharpTutorial.Controller
 
                 if (defender.Health <= 0)
                 {
-                    ResolveDeath(defender);
+                    ResolveDeath(defender, attacker, attackData);
                 }
             }
             else
@@ -239,8 +239,9 @@ namespace RogueSharpTutorial.Controller
         }
 
         // Remove the defender from the map and add some messages upon death.
-        private void ResolveDeath(Actor defender)
+        private void ResolveDeath(Actor defender, Actor attacker, AttackData attackData)
         {
+            defender.ResolveDeath(attacker, attackData);
             if (defender is Player)
             {
                 game.MessageLog.Add(defender.Name + " was killed, GAME OVER MAN!");
