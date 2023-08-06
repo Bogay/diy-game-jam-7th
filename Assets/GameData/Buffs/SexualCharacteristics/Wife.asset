@@ -10,11 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5044768eb2bb38e41b3443121a850ec1, type: 3}
-  m_Name: Unavailable
+  m_Name: Wife
   m_EditorClassIdentifier: 
   viewData:
     Sprite: {fileID: 0}
-    Description: "\u6B7B\u6703\uFF0C\u4F11\u606F\u6642\u984D\u5916\u6062\u5FA9\u4E00\u9EDE\u611B\u5FC3"
+    Description: "\u4EBA\u59BB\uFF0C\u4F11\u606F\u6642\u984D\u5916\u6062\u5FA9\u4E00\u9EDE\u611B\u5FC3"
     show: 1
+  ttl: 0
   devNote: 
   Value: 1
