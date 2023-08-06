@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using RogueSharpTutorial.View;
 using RogueSharpTutorial.Controller;
 using RogueSharpTutorial.Model.Interfaces;
 using RogueSharp;
 using UniDi;
+using UnityEngine;
 
 namespace RogueSharpTutorial.Model
 {
@@ -108,21 +108,32 @@ namespace RogueSharpTutorial.Model
 
         protected Game game;
 
+        // TODO: add getter here might not be a good idea?
+        public Game Game => this.game;
+
         public Skill Skill { get; private set; }
 
-        public Actor(Game game, [InjectOptional] CharacterSO characterSO, DiContainer container)
+        private int forwardX;
+        private int forwardY;
+        public (int, int) Forward
+        {
+            get => (this.forwardX, this.forwardY);
+            set => (this.forwardX, this.forwardY) = value;
+        }
+
+        public Actor(Game game, CharacterSO characterSO, DiContainer container)
         {
             this.game = game;
             this.buffs = new List<BuffData>();
             this.actorData = characterSO;
-            if (this.actorData?.skillData != null)
+            if (this.actorData.skillData != null)
             {
                 this.Skill = container.Instantiate<Skill>(new object[] {
-                    this.game,
-                    this.actorData.skillData,
+                    ScriptableObject.Instantiate(this.actorData.skillData),
                     this // owner
                 });
             }
+            this.health = this.MaxHealth;
         }
 
         public void Draw(IMap map)

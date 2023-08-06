@@ -41,26 +41,20 @@ namespace RogueSharpTutorial.View
         [Inject]
         public CharaBinder.CharaSelect charaSelect;
 
-        // int listCount;
-        // int randomChara;
-        // CharacterSO currentChara;
-
         [Inject]
         public CharaBinder.PlayerChara playerChara;
 
         private void Start()
         {
-            //uiInventory     = GetComponent<UI_Inventory>();
             uiStats = GetComponent<UI_Stats>();
             uiMessages = GetComponent<UI_Messages>();
-            inputKeyboard = GetComponent<InputKeyboard>();
-            // game = new Game(this);
-            // container.Inject(game);
             game = this.container.Instantiate<Game>();
-            Debug.Log(playerChara.currentSelect);
-            // listCount = charaSelect.characterSOs.Count;
-            // randomChara = UnityEngine.Random.Range(0, listCount);
-            // currentChara = charaSelect.characterSOs[randomChara];
+            Debug.Log($"Currently selected character: {playerChara.currentSelect}");
+            inputKeyboard = this.container.InstantiateComponent<InputKeyboard>(gameObject, new object[] { game });
+
+            this.container.BindInstance(this.inputKeyboard);
+
+            this.uiStats.BindInputKeyboard(this.inputKeyboard);
 
             game.Init();
         }
@@ -123,13 +117,29 @@ namespace RogueSharpTutorial.View
             }
         }
 
+        public void UpdateMapCellOverlay(int x, int y, Colors overlayColor)
+        {
+            TileUnity tile = this.mapObjects[x, y];
+            if (tile == null)
+            {
+                Debug.LogWarning($"Update overlay for null tile: ({x}, {y})");
+                return;
+            }
+
+            var c = ColorMap.UnityColors[overlayColor];
+            // HACK: make it semi-transparent
+            c.a = 0.5f;
+            tile.OverlayColor = c;
+        }
+
         public void UpdateMapCell(
             int x,
             int y,
             Colors foreColor,
             Colors backColor,
             char symbol,
-            bool isExplored
+            bool isExplored,
+            Colors overlayColor = Colors.Clear
         )
         {
             TileUnity tile;
@@ -162,6 +172,7 @@ namespace RogueSharpTutorial.View
                     mapObjects[x, y] = tile;
                 }
 
+                tile.OverlayColor = ColorMap.UnityColors[overlayColor];
                 tile.BackgroundColor = ColorMap.UnityColors[backColor];
                 tile.Text = symbol;
                 tile.TextColor = ColorMap.UnityColors[foreColor];

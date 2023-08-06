@@ -18,6 +18,9 @@ namespace RogueSharpTutorial.View
         GameObject textObject;
 
         [SerializeField]
+        GameObject overlayObject;
+
+        [SerializeField]
         UI_Stats uiState;
 
         public Actor actor;
@@ -38,15 +41,16 @@ namespace RogueSharpTutorial.View
         {
             set
             {
+                backgroundObject.SetActive(value);
+                overlayObject.SetActive(value);
+
                 if (IsAsciiTile)
                 {
-                    backgroundObject.SetActive(value);
                     spriteObject.SetActive(false);
                     textObject.SetActive(value);
                 }
                 else
                 {
-                    backgroundObject.SetActive(value);
                     spriteObject.SetActive(value);
                     textObject.SetActive(false);
                 }
@@ -69,8 +73,6 @@ namespace RogueSharpTutorial.View
             {
                 uiState.enemyUI.SetActive(false);
             }
-            // Debug.Log("Mouse is Enter GameObject." + monsterIndex);
-            // return monsterIndex;
         }
 
         /// <summary>
@@ -161,6 +163,12 @@ namespace RogueSharpTutorial.View
                     value.a
                 );
             }
+        }
+
+        public Color OverlayColor
+        {
+            get => overlayObject.GetComponent<SpriteRenderer>().color;
+            set => overlayObject.GetComponent<SpriteRenderer>().color = value;
         }
 
         /// <summary>

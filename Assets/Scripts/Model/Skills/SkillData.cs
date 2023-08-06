@@ -12,15 +12,22 @@ public enum CastResult
 
 public class SkillData : ScriptableObject
 {
+    [SerializeField]
+    private SkillRange range;
+    public SkillRange Range => this.range;
+
     public int CoolDown;
     public string SkillName;
     public string Description;
 
     public virtual CastResult Cast(Game game, Actor actor)
     {
-        // TODO: query target
-        // TODO: spawn buff
-        // TODO: show dialogue
         return CastResult.Success;
+    }
+
+    // Default implementation does not require any extra input
+    public virtual ISkillInputController GetInputController()
+    {
+        return new SkillNoInputController();
     }
 }

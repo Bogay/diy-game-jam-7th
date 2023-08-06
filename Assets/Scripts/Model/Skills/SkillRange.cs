@@ -9,6 +9,7 @@ public enum SkillDirection
     Around,
 }
 
+[System.Serializable]
 public class SkillRange
 {
     public SkillDirection Direction;
@@ -23,9 +24,9 @@ public class SkillRange
                 (int, int) cursor = source;
                 for (int i = 0; i < this.Distance; i++)
                 {
-                    yield return cursor;
                     cursor.Item1 += forward.Item1;
                     cursor.Item2 += forward.Item2;
+                    yield return cursor;
                 }
                 break;
             case SkillDirection.Self:

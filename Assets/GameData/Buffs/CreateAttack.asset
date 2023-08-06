@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36dfe9b047b704d4f812fabf6ac23889, type: 3}
+  m_Name: CreateAttack
+  m_EditorClassIdentifier: 
+  viewData:
+    Sprite: {fileID: 0}
+    Description: 
+    show: 0
+  ttl: -1
+  devNote: "CreateAttack\uFF0C\u7121\u53C3\u6578\u56E0\u6B64\u901A\u5E38\u7528\u9019\u500B
+    instance \u5373\u53EF"

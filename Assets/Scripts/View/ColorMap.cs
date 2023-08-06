@@ -26,7 +26,7 @@ namespace RogueSharpTutorial.View
 
             { Colors.TextHeading,       Color.white },
             { Colors.Text,              Palette.DbLight },
-            { Colors. Gold,             Palette.DbSun },
+            { Colors.Gold,              Palette.DbSun },
 
             { Colors.KoboldColor,       Palette.DbBrightWood },
 

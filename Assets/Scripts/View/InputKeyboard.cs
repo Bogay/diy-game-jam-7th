@@ -1,10 +1,29 @@
 ﻿using UnityEngine;
+using UniRx;
+using UniDi;
+using RogueSharpTutorial.Controller;
 
 namespace RogueSharpTutorial.View
 {
+    public enum InputState
+    {
+        Normal,
+        PrepareSkill,
+    }
+
     public class InputKeyboard : MonoBehaviour
     {
+        // FIXME: do not use extra flag to store state
+        private bool restFlag;
+        private bool skillFlag;
+
         private InputCommands input;
+        private bool skipRefresh;
+        private InputState state = InputState.Normal;
+        private ISkillInputController skillInputController;
+
+        [Inject]
+        private Game game;
 
         /// <summary>
         /// Will return the last keyboard up pressed. Will then clear the input to None.
@@ -19,63 +38,113 @@ namespace RogueSharpTutorial.View
             }
         }
 
-        private void Update()
+        private void Start()
         {
-            input = GetKeyboardValue();
+            Observable.Interval(System.TimeSpan.FromMilliseconds(300))
+                .Subscribe(_ =>
+                {
+                    if (this.skipRefresh)
+                    {
+                        this.skipRefresh = false;
+                        return;
+                    }
+
+                    this.input = InputCommands.None;
+                    this.restFlag = false;
+                    this.skillFlag = false;
+                })
+                .AddTo(this);
         }
 
-        private InputCommands GetKeyboardValue()
+        private void Update()
         {
-            if (Input.GetKeyUp(KeyCode.Keypad7))
+            var (newState, newInput) = GetKeyboardValue();
+            if (newInput != InputCommands.None)
             {
-                return InputCommands.UpLeft;
+                this.skipRefresh = true;
             }
-            else if (Input.GetKeyUp(KeyCode.Keypad8) || Input.GetKeyUp(KeyCode.UpArrow))
+            this.input = newInput;
+            this.state = newState;
+        }
+
+        public void PrepareSkill()
+        {
+            if (!this.game.IsPlayerTurn)
+                return;
+            this.skillFlag = true;
+        }
+
+        public void Rest()
+        {
+            if (!this.game.IsPlayerTurn)
+                return;
+            this.restFlag = true;
+        }
+
+        private (InputState, InputCommands) GetKeyboardValue()
+        {
+            // handle prepare skill state
+            if (this.state == InputState.PrepareSkill)
             {
-                return InputCommands.Up;
+                Debug.Assert(this.skillInputController != null);
+                var (state, cmd) = this.skillInputController.GetInput();
+                // dispose input controller
+                if (cmd == InputCommands.CastSkill)
+                {
+                    this.skillInputController = null;
+                }
+                return (state, cmd);
             }
-            else if (Input.GetKeyUp(KeyCode.Keypad9))
+
+            if (this.GetUpInput())
             {
-                return InputCommands.UpRight;
+                return (InputState.Normal, InputCommands.Up);
             }
-            else if (Input.GetKeyUp(KeyCode.Keypad4) || Input.GetKeyUp(KeyCode.LeftArrow))
+            else if (this.GetLeftInput())
             {
-                return InputCommands.Left;
+                return (InputState.Normal, InputCommands.Left);
             }
-            else if (Input.GetKeyUp(KeyCode.Keypad6) || Input.GetKeyUp(KeyCode.RightArrow))
+            else if (this.GetRightInput())
             {
-                return InputCommands.Right;
+                return (InputState.Normal, InputCommands.Right);
             }
-            else if (Input.GetKeyUp(KeyCode.Keypad1))
+            else if (this.GetDownInput())
             {
-                return InputCommands.DownLeft;
-            }
-            else if (Input.GetKeyUp(KeyCode.Keypad2) || Input.GetKeyUp(KeyCode.DownArrow))
-            {
-                return InputCommands.Down;
-            }
-            else if (Input.GetKeyUp(KeyCode.Keypad3))
-            {
-                return InputCommands.DownRight;
-            }
-            else if (Input.GetKeyUp(KeyCode.Period))
-            {
-                return InputCommands.StairsDown;
+                return (InputState.Normal, InputCommands.Down);
             }
             else if (Input.GetKeyUp(KeyCode.Escape))
             {
-                return InputCommands.CloseGame;
+                return (InputState.Normal, InputCommands.CloseGame);
             }
-            else if (Input.GetKeyUp(KeyCode.Space))
+            else if (Input.GetKeyUp(KeyCode.Space) || this.restFlag)
             {
-                return InputCommands.Rest;
+                this.restFlag = false;
+                return (InputState.Normal, InputCommands.Rest);
             }
-            else if (Input.GetKeyUp(KeyCode.LeftControl))
+            else if (this.getPrepareSkillInput())
             {
-                return InputCommands.CastSkill;
+                Debug.Log($"Prepare skill: {this.game.Player.Skill.SkillName}");
+                this.skillFlag = false;
+                this.skillInputController = this.game.Player.Skill.GetInputController();
+                return (InputState.PrepareSkill, InputCommands.None);
             }
 
-            return InputCommands.None;
+            return (InputState.Normal, InputCommands.None);
+        }
+
+        public bool GetUpInput() => Input.GetKeyUp(KeyCode.Keypad8) || Input.GetKeyUp(KeyCode.UpArrow);
+        public bool GetDownInput() => Input.GetKeyUp(KeyCode.Keypad2) || Input.GetKeyUp(KeyCode.DownArrow);
+        public bool GetLeftInput() => Input.GetKeyUp(KeyCode.Keypad4) || Input.GetKeyUp(KeyCode.LeftArrow);
+        public bool GetRightInput() => Input.GetKeyUp(KeyCode.Keypad6) || Input.GetKeyUp(KeyCode.RightArrow);
+
+        private bool getPrepareSkillInput()
+        {
+            if (this.game?.Player.Skill == null)
+                return false;
+            if (this.game?.IsPlayerTurn != true)
+                return false;
+            bool isUserInputDetected = Input.GetKeyUp(KeyCode.LeftControl) || this.skillFlag;
+            return this.game.Player.Skill.CanCast() && isUserInputDetected;
         }
     }
 }

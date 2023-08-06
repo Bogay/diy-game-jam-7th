@@ -34,3 +34,4 @@ MonoBehaviour:
   m_skillDirection: 0
   m_skillRange: 1
   m_remark: 
+  skillData: {fileID: 0}
