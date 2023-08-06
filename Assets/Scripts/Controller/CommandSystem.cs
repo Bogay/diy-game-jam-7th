@@ -114,7 +114,11 @@ namespace RogueSharpTutorial.Controller
 
                 if (monster != null)
                 {
-                    monster.PerformAction(this);
+                    var data = monster.ResolveMove();
+                    if (data.isEffective)
+                    {
+                        monster.PerformAction(this);
+                    }
                     game.SchedulingSystem.Add(monster);
                 }
 
@@ -268,6 +272,11 @@ namespace RogueSharpTutorial.Controller
 
             CastResult result = actor.Skill.Cast();
             return result == CastResult.Success;
+        }
+
+        public void MoveTo(Actor actor, int x, int y)
+        {
+            game.World.SetActorPosition(actor, x, y);
         }
     }
 }

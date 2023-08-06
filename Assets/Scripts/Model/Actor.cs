@@ -13,6 +13,8 @@ namespace RogueSharpTutorial.Model
     {
         public event UpdateAttack OnAttack;
         public event UpdateAttack OnDefense;
+        // FIXME: add type for this event
+        public event UpdateAttack OnMove;
 
         // TODO: naming
         // it is ued to update attacker / defender properties, we may need to use another type
@@ -231,6 +233,13 @@ namespace RogueSharpTutorial.Model
         public void ResolveRest(AttackData restData)
         {
             this.OnRest?.Invoke(this, new RestArgs { Actor = this, Value = restData, });
+        }
+
+        public AttackData ResolveMove()
+        {
+            AttackData attackData = new AttackData(0);
+            this.OnMove?.Invoke(this, new UpdateAttackArgs { attacker = this, defender = null, attackData = attackData });
+            return attackData;
         }
     }
 }
