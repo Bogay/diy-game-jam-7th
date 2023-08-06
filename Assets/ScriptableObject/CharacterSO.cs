@@ -285,16 +285,6 @@ public class CharacterSO : ScriptableObject
     public int m_Max_HP = 10;
     public int m_Attack = 3;
     public LoveSkill m_skill;
-    public bool m_skillType = true;
-    public float m_skillDuration;
-    public float m_skillCooldown = 3;
-    public int m_skillForUs = 0;
-    public SkillSpecialEffects m_skillSpecialEffectsForUs;
-    public int m_skillForEnemy = 0;
-    public SkillSpecialEffects m_skillSpecialEffectsForEnemy;
-    public SkillDirection m_skillDirection;
-    public int m_skillRange = 0;
-    public string m_remark;
     public SkillData skillData;
     public DetailedDescriptionText m_detailedDescriptionText;
     public List<SexualCharacteristicsSO> sexualCharacteristicsSOList;
