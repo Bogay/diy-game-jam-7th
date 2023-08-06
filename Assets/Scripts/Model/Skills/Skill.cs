@@ -24,11 +24,11 @@ public class Skill
         this.game = game;
         this.game.TurnEnded += this.onTurnEnded;
 
-        var subContainer = container.CreateSubContainer();
-        subContainer.BindFactory<BuffData, BuffData, BuffData.Factory>().FromFactory<BuffDataFactory>();
-        subContainer.BindInstance(this.owner).WithId("source").AsSingle();
-        subContainer.BindInstance(this).AsSingle();
-        subContainer.Inject(this.skillData);
+        // var subContainer = container.CreateSubContainer();
+        // subContainer.BindFactory<BuffData, BuffData, BuffData.Factory>().FromFactory<BuffDataFactory>();
+        // subContainer.BindInstance(this.owner).WithId("source").AsSingle();
+        // subContainer.BindInstance(this).AsSingle();
+        // subContainer.Inject(this.skillData);
     }
 
     public virtual bool CanCast()

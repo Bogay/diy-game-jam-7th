@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8704f5f387aba7448d9705af796bc05, type: 3}
+  m_Name: Idol - death listener
+  m_EditorClassIdentifier: 
+  viewData:
+    Sprite: {fileID: 0}
+    Description: 
+    show: 0
+  ttl: -1
+  devNote: "\u6253\u6557\u6575\u65B9\u589E\u52A0\u4E00\u9EDE\u58A8\u93E1"
+  modifications:
+  - attribute: 0
+    value: 1

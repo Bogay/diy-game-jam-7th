@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using RogueSharpTutorial.Model;
 using UnityEngine;
 
-// 己方性癖對上對方性徵	造成傷害減一
-// 己方性向對上對方性別	造成傷害減一
 [CreateAssetMenu(menuName = "SO/Buff/AttributeMatched")]
 public class AttributeMatched : BuffData
 {
@@ -22,9 +20,23 @@ public class AttributeMatched : BuffData
 
     private void onAttack(object sender, UpdateAttackArgs args)
     {
-        if ( /* 己方性癖對上對方性徵 */ false)
+        // 己方性癖對上對方性徵	造成傷害減一
+        if (this.isFetishMatched(args.attacker, args.defender))
             args.attackData.buffConst--;
-        if ( /* 己方性向對上對方性別 */ false)
+        // 己方性向對上對方性別	造成傷害減一
+        if (this.isOrientationMatched(args.attacker, args.defender))
             args.attackData.buffConst--;
+    }
+
+    private bool isFetishMatched(Actor attacker, Actor defender)
+    {
+        return attacker.actorData.m_fetish == defender.actorData.m_sexualCharacteristics_01 ||
+            attacker.actorData.m_fetish == defender.actorData.m_sexualCharacteristics_02 ||
+            attacker.actorData.m_fetish == defender.actorData.m_sexualCharacteristics_03;
+    }
+
+    private bool isOrientationMatched(Actor attacker, Actor defender)
+    {
+        return attacker.actorData.m_sexualOrientation == defender.actorData.m_gender;
     }
 }

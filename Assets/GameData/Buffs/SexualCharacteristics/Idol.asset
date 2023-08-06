@@ -9,12 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5044768eb2bb38e41b3443121a850ec1, type: 3}
-  m_Name: Unavailable
+  m_Script: {fileID: 11500000, guid: bf8b2c65407466a47853c9661ba3c638, type: 3}
+  m_Name: Idol
   m_EditorClassIdentifier: 
   viewData:
     Sprite: {fileID: 0}
-    Description: "\u6B7B\u6703\uFF0C\u4F11\u606F\u6642\u984D\u5916\u6062\u5FA9\u4E00\u9EDE\u611B\u5FC3"
+    Description: "\u6253\u6557\u6575\u65B9\u589E\u52A0\u4E00\u58A8\u93E1"
     show: 1
+  ttl: 0
   devNote: 
-  Value: 1
+  buffs:
+  - {fileID: 11400000, guid: c824facdc8e28e149a1a769f6f71f029, type: 2}

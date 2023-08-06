@@ -20,7 +20,7 @@ MonoBehaviour:
   m_sexualCharacteristics_01: 17
   m_sexualCharacteristics_02: 19
   m_sexualCharacteristics_03: 22
-  m_fetish: 0
+  m_fetish: 17
   m_Max_HP: 10
   m_Attack: 3
   m_skill: 22
@@ -34,5 +34,5 @@ MonoBehaviour:
   m_skillDirection: 1
   m_skillRange: 0
   m_remark: 
-  skillData: {fileID: 0}
+  skillData: {fileID: 11400000, guid: f8e3c3be17510ef42bbce0bae2058462, type: 2}
   m_detailedDescriptionText: 16

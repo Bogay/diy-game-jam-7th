@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3684198b55808cf4a89373ca00bdea16, type: 3}
+  m_Name: Wink
+  m_EditorClassIdentifier: 
+  range:
+    Direction: 2
+    Distance: 1
+    MaxTargetNumber: 999
+  CoolDown: 2
+  SkillName: wink
+  Description: "\u4F7F\u56DB\u5468\u6575\u65B9\u9EBB\u75FA"
+  targetBuffs:
+  - {fileID: 11400000, guid: 91df0cb545ea16241b296b5502a81704, type: 2}
+  ownerBuffs: []

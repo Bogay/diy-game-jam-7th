@@ -297,4 +297,5 @@ public class CharacterSO : ScriptableObject
     public string m_remark;
     public SkillData skillData;
     public DetailedDescriptionText m_detailedDescriptionText;
+    public List<SexualCharacteristicsSO> sexualCharacteristicsSOList;
 }

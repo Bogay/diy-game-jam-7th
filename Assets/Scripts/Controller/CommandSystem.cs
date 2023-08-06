@@ -114,7 +114,11 @@ namespace RogueSharpTutorial.Controller
 
                 if (monster != null)
                 {
-                    monster.PerformAction(this);
+                    var data = monster.ResolveMove();
+                    if (data.isEffective)
+                    {
+                        monster.PerformAction(this);
+                    }
                     game.SchedulingSystem.Add(monster);
                 }
 
@@ -133,13 +137,23 @@ namespace RogueSharpTutorial.Controller
             }
         }
 
-        public void Attack(Actor attacker, Actor defender)
+        public void Attack(Actor attacker, Actor defender, AttackData initialData = null)
         {
             StringBuilder attackMessage = new StringBuilder();
             StringBuilder defenseMessage = new StringBuilder();
 
-            AttackData attackData = ResolveAttack(attacker, defender, attackMessage);
+            AttackData attackData = ResolveAttack(attacker, defender, attackMessage, initialData);
+            if (!attackData.isEffective)
+            {
+                game.MessageLog.Add($"Attack by {attacker.Name} is blocked.");
+                return;
+            }
             defender.PrepareDefense(attacker, attackData);
+            if (!attackData.isEffective)
+            {
+                game.MessageLog.Add($"Attack by {attacker.Name} is blocked. (defense stage)");
+                return;
+            }
 
             // TODO: update attack / defense message (which was done by ResolveDefense)
 
@@ -149,7 +163,7 @@ namespace RogueSharpTutorial.Controller
                 game.MessageLog.Add(defenseMessage.ToString());
             }
 
-            ResolveDamage(defender, attackData);
+            ResolveDamage(defender, attacker, attackData);
         }
 
         /// <summary>
@@ -159,9 +173,9 @@ namespace RogueSharpTutorial.Controller
         /// <param name="defender"></param>
         /// <param name="attackMessage"></param>
         /// <returns></returns>
-        private AttackData ResolveAttack(Actor attacker, Actor defender, StringBuilder attackMessage)
+        private AttackData ResolveAttack(Actor attacker, Actor defender, StringBuilder attackMessage, AttackData initialData = null)
         {
-            AttackData attackData = new AttackData(attacker.Attack);
+            AttackData attackData = initialData ?? new AttackData(attacker.Attack);
             attacker.PrepareAttack(defender, attackData);
             attackMessage.Append($"{attacker.Name} cause {attackData.Value} damage.");
 
@@ -203,7 +217,7 @@ namespace RogueSharpTutorial.Controller
         }
 
         // Apply any damage that wasn't blocked to the defender
-        private void ResolveDamage(Actor defender, AttackData attackData)
+        private void ResolveDamage(Actor defender, Actor attacker, AttackData attackData)
         {
             if (attackData.Value > 0)
             {
@@ -215,7 +229,7 @@ namespace RogueSharpTutorial.Controller
 
                 if (defender.Health <= 0)
                 {
-                    ResolveDeath(defender);
+                    ResolveDeath(defender, attacker, attackData);
                 }
             }
             else
@@ -225,8 +239,9 @@ namespace RogueSharpTutorial.Controller
         }
 
         // Remove the defender from the map and add some messages upon death.
-        private void ResolveDeath(Actor defender)
+        private void ResolveDeath(Actor defender, Actor attacker, AttackData attackData)
         {
+            defender.ResolveDeath(attacker, attackData);
             if (defender is Player)
             {
                 game.MessageLog.Add(defender.Name + " was killed, GAME OVER MAN!");
@@ -268,6 +283,11 @@ namespace RogueSharpTutorial.Controller
 
             CastResult result = actor.Skill.Cast();
             return result == CastResult.Success;
+        }
+
+        public void MoveTo(Actor actor, int x, int y)
+        {
+            game.World.SetActorPosition(actor, x, y);
         }
     }
 }

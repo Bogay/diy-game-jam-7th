@@ -143,56 +143,12 @@ namespace RogueSharpTutorial.Controller
 
         private void CheckKeyboard()
         {
-            bool didPlayerAct = false;
 
             if (commandSystem.IsPlayerTurn)
             {
-                InputCommands command = rootConsole.GetUserCommand();
-                switch (command)
-                {
-                    case InputCommands.UpLeft:
-                        didPlayerAct = commandSystem.MovePlayer(Direction.UpLeft);
-                        break;
-                    case InputCommands.Up:
-                        didPlayerAct = commandSystem.MovePlayer(Direction.Up);
-                        break;
-                    case InputCommands.UpRight:
-                        didPlayerAct = commandSystem.MovePlayer(Direction.UpRight);
-                        break;
-                    case InputCommands.Left:
-                        didPlayerAct = commandSystem.MovePlayer(Direction.Left);
-                        break;
-                    case InputCommands.Right:
-                        didPlayerAct = commandSystem.MovePlayer(Direction.Right);
-                        break;
-                    case InputCommands.DownLeft:
-                        didPlayerAct = commandSystem.MovePlayer(Direction.DownLeft);
-                        break;
-                    case InputCommands.Down:
-                        didPlayerAct = commandSystem.MovePlayer(Direction.Down);
-                        break;
-                    case InputCommands.DownRight:
-                        didPlayerAct = commandSystem.MovePlayer(Direction.DownRight);
-                        break;
-                    case InputCommands.StairsDown:
-                        if (World.CanMoveDownToNextLevel())
-                        {
-                            MoveMapLevelDown();
-                            didPlayerAct = true;
-                        }
-                        break;
-                    case InputCommands.CloseGame:
-                        rootConsole.CloseApplication();
-                        break;
-                    case InputCommands.CastSkill:
-                        didPlayerAct = commandSystem.CastSkill(this.Player);
-                        break;
-                    case InputCommands.Rest:
-                        didPlayerAct = commandSystem.Rest(this.Player);
-                        break;
-                    default:
-                        break;
-                }
+                var data = this.Player.ResolveMove();
+                // skip player turn if move is not effective
+                bool didPlayerAct = !data.isEffective || PerformPlayerAction();
 
                 if (didPlayerAct)
                 {
@@ -206,6 +162,59 @@ namespace RogueSharpTutorial.Controller
                 commandSystem.ActivateMonsters();
                 renderRequired = true;
             }
+        }
+
+        private bool PerformPlayerAction()
+        {
+            bool didPlayerAct = false;
+            InputCommands command = rootConsole.GetUserCommand();
+            switch (command)
+            {
+                case InputCommands.UpLeft:
+                    didPlayerAct = commandSystem.MovePlayer(Direction.UpLeft);
+                    break;
+                case InputCommands.Up:
+                    didPlayerAct = commandSystem.MovePlayer(Direction.Up);
+                    break;
+                case InputCommands.UpRight:
+                    didPlayerAct = commandSystem.MovePlayer(Direction.UpRight);
+                    break;
+                case InputCommands.Left:
+                    didPlayerAct = commandSystem.MovePlayer(Direction.Left);
+                    break;
+                case InputCommands.Right:
+                    didPlayerAct = commandSystem.MovePlayer(Direction.Right);
+                    break;
+                case InputCommands.DownLeft:
+                    didPlayerAct = commandSystem.MovePlayer(Direction.DownLeft);
+                    break;
+                case InputCommands.Down:
+                    didPlayerAct = commandSystem.MovePlayer(Direction.Down);
+                    break;
+                case InputCommands.DownRight:
+                    didPlayerAct = commandSystem.MovePlayer(Direction.DownRight);
+                    break;
+                case InputCommands.StairsDown:
+                    if (World.CanMoveDownToNextLevel())
+                    {
+                        MoveMapLevelDown();
+                        didPlayerAct = true;
+                    }
+                    break;
+                case InputCommands.CloseGame:
+                    rootConsole.CloseApplication();
+                    break;
+                case InputCommands.CastSkill:
+                    didPlayerAct = commandSystem.CastSkill(this.Player);
+                    break;
+                case InputCommands.Rest:
+                    didPlayerAct = commandSystem.Rest(this.Player);
+                    break;
+                default:
+                    break;
+            }
+
+            return didPlayerAct;
         }
 
         private void MoveMapLevelDown()

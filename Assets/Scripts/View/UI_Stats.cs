@@ -176,6 +176,7 @@ namespace RogueSharpTutorial.View
             SetPlayerUI();
 
             SetHPUI(game);
+            SetATKUI(game);
         }
 
         public void SetPlayerUI()
@@ -292,7 +293,7 @@ namespace RogueSharpTutorial.View
         void SetATKUI(Game game)
         {
             ResetChild(ATKField);
-            int atk = charaSelect.characterSOs[playerChara.currentSelect].m_Attack;
+            int atk = game.Player.Attack;
             for (int i = 0; i < atk; i++)
             {
                 Instantiate(ATKPrefab, ATKField.transform);

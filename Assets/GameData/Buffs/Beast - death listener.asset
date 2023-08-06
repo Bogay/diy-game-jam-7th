@@ -9,10 +9,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b5f542d6a1ddbbc4384e41bdcc82b387, type: 3}
-  m_Name: Brother Jay
+  m_Script: {fileID: 11500000, guid: a8704f5f387aba7448d9705af796bc05, type: 3}
+  m_Name: Beast - death listener
   m_EditorClassIdentifier: 
-  Name: "\u6770\u54E5"
-  MaxHP: 100
-  Attack: 30
-  Defense: 20
+  viewData:
+    Sprite: {fileID: 0}
+    Description: 
+    show: 0
+  ttl: -1
+  devNote: 
+  modifications:
+  - attribute: 1
+    value: 1

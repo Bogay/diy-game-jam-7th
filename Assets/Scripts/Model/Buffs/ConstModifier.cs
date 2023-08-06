@@ -1,9 +1,13 @@
+using System.Collections.Generic;
 using UnityEngine;
 using RogueSharpTutorial.Model;
 
 [CreateAssetMenu(menuName = "SO/Buff/ConstModifier")]
 public class ConstModifier : BuffData
 {
+    [SerializeField]
+    private List<ModifyAttributeItem> modificationOnStartup;
+
     [SerializeField]
     private int attack;
     [SerializeField]
@@ -16,6 +20,11 @@ public class ConstModifier : BuffData
         base.OnAttaching(actor);
         actor.OnAttack += this.onAttack;
         actor.OnDefense += this.onDefense;
+
+        foreach (var m in this.modificationOnStartup)
+        {
+            m.Apply(actor);
+        }
     }
 
     public override void OnDetached(Actor actor)
