@@ -38,3 +38,4 @@ MonoBehaviour:
   m_detailedDescriptionText: 1
   sexualCharacteristicsSOList:
   - {fileID: 11400000, guid: c00e1b873c986f541914f0e9abed0faa, type: 2}
+  - {fileID: 11400000, guid: ff60eec6bd780ee4184a2771968de974, type: 2}

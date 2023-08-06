@@ -36,3 +36,5 @@ MonoBehaviour:
   m_remark: 
   skillData: {fileID: 0}
   m_detailedDescriptionText: 2
+  sexualCharacteristicsSOList:
+  - {fileID: 11400000, guid: 890d90101db522d498951867427cad9c, type: 2}

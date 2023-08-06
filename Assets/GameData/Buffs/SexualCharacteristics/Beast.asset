@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf8b2c65407466a47853c9661ba3c638, type: 3}
+  m_Name: Beast
+  m_EditorClassIdentifier: 
+  viewData:
+    Sprite: {fileID: 0}
+    Description: "\u58A8\u93E1\u4E0A\u9650\u6E1B\u4E09\uFF0C\u9B45\u529B\u52A0\u4E00\uFF0C\u64CA\u6BBA\u6575\u4EBA\u58A8\u93E1\u4E0A\u9650\u52A0\u4E00"
+    show: 1
+  ttl: 0
+  devNote: 
+  buffs:
+  - {fileID: 11400000, guid: 305917e617dca9347b0ae448fd08f1e8, type: 2}
+  - {fileID: 11400000, guid: 6afb78b515a0f2e43b8acd0378662d16, type: 2}
