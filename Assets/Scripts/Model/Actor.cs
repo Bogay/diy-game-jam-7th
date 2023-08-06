@@ -11,6 +11,7 @@ namespace RogueSharpTutorial.Model
 {
     public class Actor : IActor, IDrawable, IScheduleable
     {
+        public event SkillCasted OnCasted;
         public event UpdateAttack OnAttack;
         public event UpdateAttack OnDefense;
         // FIXME: add type for these events
@@ -273,6 +274,26 @@ namespace RogueSharpTutorial.Model
                 defender = this,
                 attackData = attackData,
             });
+        }
+
+        public bool CastSkill()
+        {
+            if (this.Skill == null)
+            {
+                return false;
+            }
+            if (!this.Skill.CanCast())
+            {
+                return false;
+            }
+            CastResult result = this.Skill.Cast();
+            this.OnCasted?.Invoke(this, new SkillCastedEventArgs
+            {
+                Actor = this,
+                Skill = this.Skill,
+                Result = result,
+            });
+            return result == CastResult.Success;
         }
     }
 }

@@ -150,6 +150,26 @@ namespace RogueSharpTutorial.View
         public GameObject CHPPrefab;
         public GameObject ATKPrefab;
 
+        [Inject]
+        private void setupGame([InjectOptional] Game game)
+        {
+            if (game == null)
+            {
+                Debug.Log("No game instance provided. Skip setup");
+                return;
+            }
+
+            game.Player.OnCasted += (_, args) =>
+            {
+                if (args.Result == CastResult.Success)
+                {
+                    this.skillField.GetComponent<TMP_Text>().text = args.Skill.SkillName;
+                    this.ShowPlayerDialogue();
+                }
+            };
+            Debug.Log("Finish setup: UI_Stats");
+        }
+
         /// <summary>
         /// Update stats section of the screen for the player stats.
         /// </summary>

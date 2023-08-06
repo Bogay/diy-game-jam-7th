@@ -478,19 +478,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 74910733}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1929674592}
-        m_TargetAssemblyTypeName: RogueSharpTutorial.View.UI_Stats, Assembly-CSharp
-        m_MethodName: ShowPlayerDialogue
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &74910733
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7141,8 +7129,6 @@ MonoBehaviour:
   inputKeyboard: {fileID: 0}
   playerCamera: {fileID: 519420030}
   tilePrefab: {fileID: 114081800238575896, guid: 832fd3dd2b8511e46b4a7e2395265679, type: 3}
-  sprites:
-  - {fileID: 11400000, guid: ede9cf6db8f7cf240a3d459249a9af3c, type: 2}
 --- !u!4 &1929674591
 Transform:
   m_ObjectHideFlags: 0
