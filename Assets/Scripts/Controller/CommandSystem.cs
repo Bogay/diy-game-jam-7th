@@ -137,13 +137,23 @@ namespace RogueSharpTutorial.Controller
             }
         }
 
-        public void Attack(Actor attacker, Actor defender)
+        public void Attack(Actor attacker, Actor defender, AttackData initialData = null)
         {
             StringBuilder attackMessage = new StringBuilder();
             StringBuilder defenseMessage = new StringBuilder();
 
-            AttackData attackData = ResolveAttack(attacker, defender, attackMessage);
+            AttackData attackData = ResolveAttack(attacker, defender, attackMessage, initialData);
+            if (!attackData.isEffective)
+            {
+                game.MessageLog.Add($"Attack by {attacker.Name} is blocked.");
+                return;
+            }
             defender.PrepareDefense(attacker, attackData);
+            if (!attackData.isEffective)
+            {
+                game.MessageLog.Add($"Attack by {attacker.Name} is blocked. (defense stage)");
+                return;
+            }
 
             // TODO: update attack / defense message (which was done by ResolveDefense)
 
@@ -163,9 +173,9 @@ namespace RogueSharpTutorial.Controller
         /// <param name="defender"></param>
         /// <param name="attackMessage"></param>
         /// <returns></returns>
-        private AttackData ResolveAttack(Actor attacker, Actor defender, StringBuilder attackMessage)
+        private AttackData ResolveAttack(Actor attacker, Actor defender, StringBuilder attackMessage, AttackData initialData = null)
         {
-            AttackData attackData = new AttackData(attacker.Attack);
+            AttackData attackData = initialData ?? new AttackData(attacker.Attack);
             attacker.PrepareAttack(defender, attackData);
             attackMessage.Append($"{attacker.Name} cause {attackData.Value} damage.");
 
