@@ -24,18 +24,9 @@ MonoBehaviour:
   m_Max_HP: 10
   m_Attack: 3
   m_skill: 9
-  m_skillType: 1
-  m_skillDuration: 0
-  m_skillCooldown: 2
-  m_skillForUs: 0
-  m_skillSpecialEffectsForUs: 5
-  m_skillForEnemy: 0
-  m_skillSpecialEffectsForEnemy: 0
-  m_skillDirection: 1
-  m_skillRange: 0
-  m_remark: 
   skillData: {fileID: 0}
   m_detailedDescriptionText: 8
   sexualCharacteristicsSOList:
   - {fileID: 11400000, guid: 909a0c8c6fed51941bba09aa42584957, type: 2}
   - {fileID: 11400000, guid: 032d167b961703b47b83fdabde3ce9d6, type: 2}
+  sexualCharacteristicsList: 160000000b000000

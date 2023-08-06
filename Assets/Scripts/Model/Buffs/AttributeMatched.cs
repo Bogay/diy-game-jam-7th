@@ -30,9 +30,7 @@ public class AttributeMatched : BuffData
 
     private bool isFetishMatched(Actor attacker, Actor defender)
     {
-        return attacker.actorData.m_fetish == defender.actorData.m_sexualCharacteristics_01 ||
-            attacker.actorData.m_fetish == defender.actorData.m_sexualCharacteristics_02 ||
-            attacker.actorData.m_fetish == defender.actorData.m_sexualCharacteristics_03;
+        return defender.actorData.sexualCharacteristicsList.Contains(attacker.actorData.m_fetish);
     }
 
     private bool isOrientationMatched(Actor attacker, Actor defender)

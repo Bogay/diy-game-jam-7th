@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -59,27 +60,28 @@ public class CharaSelectCanvas : MonoBehaviour
         if (charaSelect == null)
             return;
 
-        chineseName.GetComponent<TMP_Text>().text = charaSelect.characterSOs[
-            _currentSelect
-        ].m_chineseName.ToString();
-        sexualCharacteristics_01.GetComponent<TMP_Text>().text = charaSelect.characterSOs[
-            _currentSelect
-        ].m_sexualCharacteristics_01.ToString();
-        sexualCharacteristics_02.GetComponent<TMP_Text>().text = charaSelect.characterSOs[
-            _currentSelect
-        ].m_sexualCharacteristics_02.ToString();
-        sexualCharacteristics_03.GetComponent<TMP_Text>().text = charaSelect.characterSOs[
-            _currentSelect
-        ].m_sexualCharacteristics_03.ToString();
-        fetish.GetComponent<TMP_Text>().text = charaSelect.characterSOs[
-            _currentSelect
-        ].m_fetish.ToString();
-        loveCharaSprite.sprite = charaSelect.characterSOs[_currentSelect].m_sprite;
-
-        string skillText = charaSelect.characterSOs[_currentSelect].m_skill.ToString();
-        string detailText = charaSelect.characterSOs[
-            _currentSelect
-        ].m_detailedDescriptionText.ToString();
+        CharacterSO selected = charaSelect.characterSOs[_currentSelect];
+        chineseName.GetComponent<TMP_Text>().text = selected.m_chineseName.ToString();
+        GameObject[] cs = new GameObject[] {
+            sexualCharacteristics_01,
+            sexualCharacteristics_02,
+            sexualCharacteristics_03,
+        };
+        for (int i = 0; i < cs.Length; i++)
+        {
+            try
+            {
+                cs[i].GetComponent<TMP_Text>().text = selected.sexualCharacteristicsList[i].ToString();
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                cs[i].GetComponent<TMP_Text>().text = "-";
+            }
+        }
+        fetish.GetComponent<TMP_Text>().text = selected.m_fetish.ToString();
+        loveCharaSprite.sprite = selected.m_sprite;
+        string skillText = selected.m_skill.ToString();
+        string detailText = selected.m_detailedDescriptionText.ToString();
         skillName.text = "技能: " + skillText.Replace("_", "，");
         detailedDescription.text = detailText.Replace("_", "，");
 

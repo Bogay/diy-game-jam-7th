@@ -278,9 +278,6 @@ public class CharacterSO : ScriptableObject
     public Sprite m_sprite;
     public Gender m_gender;
     public Gender m_sexualOrientation;
-    public SexualCharacteristics m_sexualCharacteristics_01;
-    public SexualCharacteristics m_sexualCharacteristics_02;
-    public SexualCharacteristics m_sexualCharacteristics_03;
     public SexualCharacteristics m_fetish;
     public int m_Max_HP = 10;
     public int m_Attack = 3;
@@ -288,4 +285,6 @@ public class CharacterSO : ScriptableObject
     public SkillData skillData;
     public DetailedDescriptionText m_detailedDescriptionText;
     public List<SexualCharacteristicsSO> sexualCharacteristicsSOList;
+
+    public List<SexualCharacteristics> sexualCharacteristicsList;
 }
