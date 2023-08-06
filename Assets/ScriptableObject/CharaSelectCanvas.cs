@@ -88,6 +88,7 @@ public class CharaSelectCanvas : MonoBehaviour
         SetHPUI();
         SetATKUI();
         playerChara.currentSelect = _currentSelect;
+
         // Debug.Log(_currentSelect);
         // Debug.Log(playerChara.currentSelect);
     }
