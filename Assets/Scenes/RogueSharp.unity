@@ -478,19 +478,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 74910733}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1929674592}
-        m_TargetAssemblyTypeName: RogueSharpTutorial.View.UI_Stats, Assembly-CSharp
-        m_MethodName: ShowPlayerDialogue
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &74910733
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1119,7 +1107,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &240068602
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5763,7 +5751,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1604009807
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6481,7 +6469,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1699923430
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7141,8 +7129,6 @@ MonoBehaviour:
   inputKeyboard: {fileID: 0}
   playerCamera: {fileID: 519420030}
   tilePrefab: {fileID: 114081800238575896, guid: 832fd3dd2b8511e46b4a7e2395265679, type: 3}
-  sprites:
-  - {fileID: 11400000, guid: ede9cf6db8f7cf240a3d459249a9af3c, type: 2}
 --- !u!4 &1929674591
 Transform:
   m_ObjectHideFlags: 0
@@ -8037,6 +8023,10 @@ PrefabInstance:
       propertyPath: m_hasFontAssetChanged
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2458632926649284861, guid: 70fcbc03c0579254f8377873c9a6bc4d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2767158853882955818, guid: 70fcbc03c0579254f8377873c9a6bc4d, type: 3}
       propertyPath: m_fontAsset
       value: 
@@ -8107,6 +8097,14 @@ PrefabInstance:
       objectReference: {fileID: -8886518023705145280, guid: a14c480d3f602774dad39e047fed490e, type: 2}
     - target: {fileID: 7370180074797446942, guid: 70fcbc03c0579254f8377873c9a6bc4d, type: 3}
       propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7587000754257135151, guid: 70fcbc03c0579254f8377873c9a6bc4d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8397528189922055307, guid: 70fcbc03c0579254f8377873c9a6bc4d, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9029080169440856140, guid: 70fcbc03c0579254f8377873c9a6bc4d, type: 3}

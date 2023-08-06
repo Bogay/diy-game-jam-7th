@@ -29,9 +29,6 @@ namespace RogueSharpTutorial.View
         [SerializeField]
         private TileUnity tilePrefab;
 
-        [SerializeField]
-        private CharacterSO[] sprites;
-
         [Inject]
         private DiContainer container;
 
@@ -53,10 +50,11 @@ namespace RogueSharpTutorial.View
             inputKeyboard = this.container.InstantiateComponent<InputKeyboard>(gameObject, new object[] { game });
 
             this.container.BindInstance(this.inputKeyboard);
-
             this.uiStats.BindInputKeyboard(this.inputKeyboard);
 
             game.Init();
+
+            this.container.Inject(this.uiStats);
         }
 
         private void Update()

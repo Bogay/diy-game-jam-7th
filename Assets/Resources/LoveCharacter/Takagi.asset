@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_name: 24
   m_chineseName: 24
-  m_sprite: {fileID: 21300000, guid: cab66c65089316d4b8f76f9f79649604, type: 3}
+  m_sprite: {fileID: 21300000, guid: 8dfb7a7a31f35b340964f948c5f702fd, type: 3}
   m_gender: 1
   m_sexualOrientation: 0
   m_sexualCharacteristics_01: 1
@@ -24,15 +24,7 @@ MonoBehaviour:
   m_Max_HP: 10
   m_Attack: 3
   m_skill: 23
-  m_skillType: 1
-  m_skillDuration: 0
-  m_skillCooldown: 3
-  m_skillForUs: 0
-  m_skillSpecialEffectsForUs: 0
-  m_skillForEnemy: 1
-  m_skillSpecialEffectsForEnemy: 17
-  m_skillDirection: 0
-  m_skillRange: 1
-  m_remark: 
   skillData: {fileID: 0}
   m_detailedDescriptionText: 17
+  sexualCharacteristicsSOList: []
+  sexualCharacteristicsList: 010000001300000016000000

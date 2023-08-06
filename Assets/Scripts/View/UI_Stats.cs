@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.UI;
 using RogueSharpTutorial.Model;
 using RogueSharpTutorial.Controller;
@@ -6,6 +6,7 @@ using UniDi;
 using TMPro;
 using System.Collections;
 using System.Collections.Generic;
+using System;
 
 namespace RogueSharpTutorial.View
 {
@@ -149,6 +150,26 @@ namespace RogueSharpTutorial.View
         public GameObject CHPPrefab;
         public GameObject ATKPrefab;
 
+        [Inject]
+        private void setupGame([InjectOptional] Game game)
+        {
+            if (game == null)
+            {
+                Debug.Log("No game instance provided. Skip setup");
+                return;
+            }
+
+            game.Player.OnCasted += (_, args) =>
+            {
+                if (args.Result == CastResult.Success)
+                {
+                    this.skillField.GetComponent<TMP_Text>().text = args.Skill.SkillName;
+                    this.ShowPlayerDialogue();
+                }
+            };
+            Debug.Log("Finish setup: UI_Stats");
+        }
+
         /// <summary>
         /// Update stats section of the screen for the player stats.
         /// </summary>
@@ -173,35 +194,37 @@ namespace RogueSharpTutorial.View
             // mapLevelField.text = "Map Level: " + game.mapLevel;
             // genderField.text = "性別";
 
-            SetPlayerUI();
+            SetPlayerUI(game);
 
             SetHPUI(game);
             SetATKUI(game);
         }
 
-        public void SetPlayerUI()
+        public void SetPlayerUI(Game game)
         {
-            nameField.text = charaSelect.characterSOs[
-                playerChara.currentSelect
-            ].m_chineseName.ToString();
+            CharacterSO playerData = game.Player.actorData;
+            nameField.text = playerData.m_chineseName.ToString();
 
             LevelField.text = "等級:?";
 
-            sexualCharacteristics_01_Field.text = charaSelect.characterSOs[
-                playerChara.currentSelect
-            ].m_sexualCharacteristics_01.ToString();
+            var cs = new TMP_Text[] {
+                sexualCharacteristics_01_Field,
+                sexualCharacteristics_02_Field,
+                sexualCharacteristics_03_Field,
+            };
+            for (int i = 0; i < cs.Length; i++)
+            {
+                try
+                {
+                    cs[i].GetComponent<TMP_Text>().text = playerData.sexualCharacteristicsList[i].ToString();
+                }
+                catch (ArgumentOutOfRangeException)
+                {
+                    cs[i].GetComponent<TMP_Text>().text = "-";
+                }
+            }
 
-            sexualCharacteristics_02_Field.text = charaSelect.characterSOs[
-                playerChara.currentSelect
-            ].m_sexualCharacteristics_02.ToString();
-
-            sexualCharacteristics_03_Field.text = charaSelect.characterSOs[
-                playerChara.currentSelect
-            ].m_sexualCharacteristics_03.ToString();
-
-            fetishField.text = charaSelect.characterSOs[
-                playerChara.currentSelect
-            ].m_fetish.ToString();
+            fetishField.text = playerData.m_fetish.ToString();
         }
 
         public void ShowPlayerDialogue()
@@ -212,20 +235,28 @@ namespace RogueSharpTutorial.View
         public void SetEnemyUI(CharacterSO enemy)
         {
             enemy_nameField.text = enemy.m_chineseName.ToString();
-
             enemy_HPField.text = enemy.m_Max_HP.ToString();
-
             enemy_ATKField.text = enemy.m_Attack.ToString();
 
-            enemy_sexualCharacteristics_01_Field.text = enemy.m_sexualCharacteristics_01.ToString();
-
-            enemy_sexualCharacteristics_02_Field.text = enemy.m_sexualCharacteristics_02.ToString();
-
-            enemy_sexualCharacteristics_03_Field.text = enemy.m_sexualCharacteristics_03.ToString();
+            var cs = new TMP_Text[] {
+                enemy_sexualCharacteristics_01_Field,
+                enemy_sexualCharacteristics_02_Field,
+                enemy_sexualCharacteristics_03_Field,
+            };
+            for (int i = 0; i < cs.Length; i++)
+            {
+                try
+                {
+                    cs[i].GetComponent<TMP_Text>().text = enemy.sexualCharacteristicsList[i].ToString();
+                }
+                catch (ArgumentOutOfRangeException)
+                {
+                    cs[i].GetComponent<TMP_Text>().text = "-";
+                }
+            }
 
             enemy_fetishField.text = enemy.m_fetish.ToString();
-
-            enemy_skillField.text = enemy.m_skill.ToString();
+            enemy_skillField.text = enemy.skillData?.SkillName ?? "";
         }
 
         public void ShowEnemyDialogue()
