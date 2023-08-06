@@ -9,14 +9,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bf8b2c65407466a47853c9661ba3c638, type: 3}
-  m_Name: Idol
+  m_Script: {fileID: 11500000, guid: 54194ae5404bbf84ea9df97ea6cb272b, type: 3}
+  m_Name: Masochism - heal
   m_EditorClassIdentifier: 
   viewData:
     Sprite: {fileID: 0}
-    Description: "\u6253\u6557\u6575\u65B9\u589E\u52A0\u4E00\u58A8\u93E1"
+    Description: "\u53D7\u50B7\u6642\u56DE\u5FA9\u4E00\u58A8\u93E1"
     show: 1
   ttl: 0
-  devNote: 
-  buffs:
-  - {fileID: 11400000, guid: c824facdc8e28e149a1a769f6f71f029, type: 2}
+  devNote: "SM \u7684 M"
+  healAmountOnAttack: 0
+  healAmountOnDamaged: 1
+  healAmountOnDefense: 0

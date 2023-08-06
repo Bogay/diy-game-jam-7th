@@ -134,17 +134,31 @@ namespace RogueSharpTutorial.Model
 
         private void bindCharacterSO(CharacterSO characterSO, DiContainer container)
         {
+            var subContainer = container.CreateSubContainer();
+            subContainer.BindInstance(this).WithId("source").AsSingle();
+            subContainer.BindFactory<BuffData, BuffData, BuffData.Factory>().FromFactory<BuffDataFactory>();
+
+            // FIXME: call resolve is not a good idea?
+            BuffData.Factory factory = subContainer.Resolve<BuffData.Factory>();
+
             this.actorData = characterSO;
             if (this.actorData.skillData != null)
             {
-                this.Skill = container.Instantiate<Skill>(new object[] {
+                this.Skill = subContainer.Instantiate<Skill>(new object[] {
                     ScriptableObject.Instantiate(this.actorData.skillData),
                     this // owner
                 });
+                subContainer.BindInstance(this.Skill).AsSingle();
+                subContainer.Inject(this.Skill.SkillData);
             }
             this.MaxHealth = this.actorData.m_Max_HP;
             this.Gender = this.actorData.m_gender;
             this.Attack = this.actorData.m_Attack;
+
+            foreach (var s in this.actorData.sexualCharacteristicsSOList)
+            {
+                this.AddBuff(factory.Create(s));
+            }
         }
 
         public void Draw(IMap map)
