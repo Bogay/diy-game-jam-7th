@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.UI;
 using RogueSharpTutorial.Model;
 using RogueSharpTutorial.Controller;
@@ -236,7 +236,7 @@ namespace RogueSharpTutorial.View
             }
 
             enemy_fetishField.text = enemy.m_fetish.ToString();
-            enemy_skillField.text = enemy.m_skill.ToString();
+            enemy_skillField.text = enemy.skillData?.SkillName ?? "";
         }
 
         public void ShowEnemyDialogue()
