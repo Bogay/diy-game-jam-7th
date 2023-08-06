@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_name: 18
   m_chineseName: 18
-  m_sprite: {fileID: 21300000, guid: 24ec31eaed690744faff2067f0ce094f, type: 3}
+  m_sprite: {fileID: 21300000, guid: 7e9e2ae614d236343bf639e1b4ea5d9d, type: 3}
   m_gender: 0
   m_sexualOrientation: 1
   m_sexualCharacteristics_01: 15
@@ -36,3 +36,4 @@ MonoBehaviour:
   m_remark: 
   skillData: {fileID: 0}
   m_detailedDescriptionText: 14
+  sexualCharacteristicsSOList: []
