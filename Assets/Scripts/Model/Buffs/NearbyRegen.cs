@@ -8,6 +8,8 @@ using UniDi;
 public class NearbyRegen : BuffData
 {
     [SerializeField]
+    private bool matchAll;
+    [SerializeField]
     private CharacterSO.SexualCharacteristics target;
     [SerializeField]
     private int distance;
@@ -31,7 +33,7 @@ public class NearbyRegen : BuffData
         int matchedNumber = this.range.Grids((actor.X, actor.Y), (0, 0))
             .Select((xy) => this.game.World.GetMonsterAt(xy.Item1, xy.Item2))
             .Where(m => m != null)
-            .Count(m => m.actorData.sexualCharacteristicsList.Contains(this.target));
+            .Count(m => this.matchAll || m.actorData.sexualCharacteristicsList.Contains(this.target));
         actor.Health += this.healAmount * matchedNumber;
 
         actor.RemoveBuff(this);

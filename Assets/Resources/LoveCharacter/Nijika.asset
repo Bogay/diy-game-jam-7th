@@ -21,7 +21,7 @@ MonoBehaviour:
   m_Max_HP: 10
   m_Attack: 3
   m_skill: 15
-  skillData: {fileID: 0}
+  skillData: {fileID: 11400000, guid: 3cd66f596f880b547b99fb28b931e1e5, type: 2}
   m_detailedDescriptionText: 12
   sexualCharacteristicsSOList:
   - {fileID: 11400000, guid: c552f79b69e64d34782f0649eee6ac99, type: 2}

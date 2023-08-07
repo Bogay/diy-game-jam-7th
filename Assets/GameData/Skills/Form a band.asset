@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3684198b55808cf4a89373ca00bdea16, type: 3}
+  m_Name: Form a band
+  m_EditorClassIdentifier: 
+  range:
+    Direction: 1
+    Distance: 0
+    MaxTargetNumber: 1
+  CoolDown: 3
+  SkillName: "\u7D44\u5718"
+  Description: "\u6BCF\u6709\u4E00\u4EBA\u5728\u8EAB\u65C1\u52A0\u4E00\u58A8\u93E1"
+  targetBuffs: []
+  ownerBuffs:
+  - {fileID: 11400000, guid: 1d975ab68ca7e9b4ea847dd72dfdb33a, type: 2}
