@@ -1,0 +1,16 @@
+using UnityEngine;
+using RogueSharpTutorial.Model;
+
+[CreateAssetMenu(menuName = "SO/Buff/#SCRIPTNAME#")]
+public class #SCRIPTNAME# : BuffData
+{
+    public override void OnAttaching(Actor actor)
+    {
+        base.OnAttaching(actor);
+    }
+
+    public override void OnDetached(Actor actor)
+    {
+        base.OnDetached(actor);
+    }
+}
