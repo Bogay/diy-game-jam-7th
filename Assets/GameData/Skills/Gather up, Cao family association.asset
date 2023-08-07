@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3684198b55808cf4a89373ca00bdea16, type: 3}
+  m_Name: Gather up, Cao family association
+  m_EditorClassIdentifier: 
+  range:
+    Direction: 1
+    Distance: 0
+    MaxTargetNumber: 0
+  CoolDown: 3
+  SkillName: "\u66F9\u6C0F\u5B97\u89AA\u6703\u96C6\u5408\uFF01"
+  Description: "\u4F9D\u8EAB\u65C1NTR\u5C6C\u6027\u4EBA\u6578\uFF0C\u56DE\u5FA9\u5169\u500D\u4EBA\u6578\u4E4B\u58A8\u93E1"
+  targetBuffs: []
+  ownerBuffs:
+  - {fileID: 11400000, guid: 1a0b5988805af3c46a59b12db34f0b81, type: 2}
