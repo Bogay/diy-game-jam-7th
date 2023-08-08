@@ -38,6 +38,7 @@ public class Family : BuffData
     {
         var hasFamilyNearBy = this.range.Grids((this.owner.X, this.owner.Y), (0, 0))
             .Select((x) => this.game.World.GetMonsterAt(x.Item1, x.Item2))
+            .Where(x => x != null)
             .Any(this.isFamily);
         if (hasFamilyNearBy)
         {
